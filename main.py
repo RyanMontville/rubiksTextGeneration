@@ -1,12 +1,10 @@
 from PIL import Image
 from letters import drawA
 
-rows = []
-
 
 def generate_grid(background_color, width, height):
-    mosaic_pixel_width = width * 30
-    mosaic_pixel_height = height * 30
+    mosaic_pixel_width = width * 3
+    mosaic_pixel_height = height * 3
     grid = []
     for y in range(mosaic_pixel_height):
         row = []
@@ -17,21 +15,49 @@ def generate_grid(background_color, width, height):
     return grid
 
 
-# rows = generate_grid("red", 10, 10)
+def color_name_to_rgb(color_name):
+    match color_name:
+        case "red":
+            return 255, 0, 0
+        case "yellow":
+            return 255, 255, 0
+        case "orange":
+            return 255, 165, 0
+        case "green":
+            return 50, 205, 50
+        case "blue":
+            return 0, 0, 255
+        case "white":
+            return 255, 255, 255
+
+
+def enlargeImage(original_image, new_image_name):
+    image = original_image
+    original_width, original_height = image.size
+    new_size = (original_width * 50, original_height * 50)
+    larger_image = image.resize(new_size, Image.NEAREST)
+    larger_image.save(new_image_name)
+    larger_image.show()
+
+
+def generateImage(pixel_rows):
+    img_small = Image.new('RGB', (30, 30), "WHITE")
+    for y in range(len(rows)):
+        row = rows[y]
+        for x in range(len(row)):
+            color_name = row[x]
+            color_rgb = color_name_to_rgb(color_name)
+            img_small.putpixel((x, y), color_rgb)
+    return img_small
+
+
+mosaic_background_color = "red"
+mosaic_text_color = "white"
+rows = generate_grid(mosaic_background_color, 10, 10)
 current_x = 1
 current_y = 1
-rows = drawA(rows, current_x, current_y, "white", "red")
 
-print(rows)
+rows = drawA(rows, current_x, current_y, mosaic_text_color, mosaic_background_color)
 
-# img = Image.new('RGB', (30, 30), "WHITE")
-#     for row in rows:
-#         x_cord = int(row[0])
-#         y_cord = int(row[1])
-#         color = row[2]
-#         rgb = hex_to_rgb(color)
-#         img.putpixel((x_cord, y_cord), rgb)
-#     username_parts = username.split("@")
-#     file_name = f"{username_parts[0]}.png"
-#     img.save(file_name)
-#     img.show()
+img = generateImage(rows)
+enlargeImage(img, "final.png")
