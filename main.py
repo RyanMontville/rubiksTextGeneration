@@ -51,8 +51,11 @@ def generateImage(pixel_rows):
     return img_small
 
 
-mosaic_background_color = "red"
-mosaic_text_color = "white"
+mosaic_background_color = input("Enter background color [red, orange, yellow, green, blue, white]: ")
+mosaic_text_color = input("Enter text color [red, orange, yellow, green, blue, white]: ")
+width_cubes = int(input("Enter how many cubes wide the mosaic will be: "))
+height_cubes = int(input("Enter how many cubes tall the mosaic will be: "))
+print(f"{width_cubes} cubes wide * {height_cubes} cubes tall = {width_cubes * height_cubes} cubes total")
 rows = generate_grid(mosaic_background_color, 10, 10)
 current_x = 1
 current_y = 1
