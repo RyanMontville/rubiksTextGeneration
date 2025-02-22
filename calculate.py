@@ -64,17 +64,19 @@ def calculateMinimumSize(text):
 
 def determineTextBreak(text):
     """Determines whether the text can be drawn on one line or if it
-    needs to be split into multiple line
-    :returns boolean if text can be drawn on a single line"""
+    needs to be split into multiple line.
+    :returns boolean if text can be drawn on a single line and the rest of the text if not one line"""
     pass
 
 
 def centerText(text):
-    """Returns the number of pixels to add before the text to center it on the mosaic"""
+    """Returns the number of pixels to add (if any) before the text to center it on the mosaic."""
     pass
 
 
 def recommendedDimensions():
-    """Will Determine the minimum number of cubes needed and the recommended dimensions of the mosaic"""
-    # Might split this into 2 functions
+    """Will Determine the recommended dimensions of the mosaic"""
+    # Might remove this since calculateMinimumSize() exists, but this function might be used to optimize the best
+    # layout. Or that could also be added to calculateMinimumSize().
+    # This could also be completed using determineTextBreak()
     pass

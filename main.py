@@ -81,7 +81,7 @@ def getIntFromUser(prompt, is_color, min_num, max_num):
 
 
 # First prompt for text
-text_for_mosaic = input("Enter the text for the mosaic: ")
+text_for_mosaic = input("Enter the text for the mosaic: ").lower()
 # Calculate the minimum number of cubes needed and the recommended dimensions
 # (Currently puts each word on a new line)
 min_size = calculate.calculateMinimumSize(text_for_mosaic)
@@ -89,18 +89,28 @@ min_size = calculate.calculateMinimumSize(text_for_mosaic)
 print("Minimum cubes needed to make this mosaic:")
 print(f"{min_size[0]} cubes wide by {min_size[1]} cubes tall")
 print(f"{min_size[0] * min_size[1]} cubes needed in total")
-
 # Prompt for dimensions
 width_cubes = getIntFromUser("wide", False, min_size[0] - 1, 100) * 3
 height_cubes = getIntFromUser("tall", False, min_size[1] - 1, 100) * 3
 print(f"Your mosaic will be {int(width_cubes / 3)} cubes wide * {int(height_cubes / 3)} cubes tall ="
       f" {int((width_cubes / 3) * (height_cubes / 3))} cubes total")
-
 # Prompt for colors
 mosaic_background_color = getIntFromUser("background", True, 0, 7) - 1
 mosaic_text_color = getIntFromUser("text", True, 0, 7) - 1
-# Maybe provide a warning / prompt again if background color and text color are the same
-
+# Provide a warning / prompt again if background color and text color are the same
+same_color = False
+if mosaic_background_color == mosaic_text_color:
+    same_color = True
+while same_color:
+    print("\nWarning! You have selected the same text color as the background. This will generate an image of one "
+          "solid color.")
+    color_to_change = input("Do you wan to change the [text] color or [background] color: ").lower()
+    if color_to_change == "text":
+        mosaic_text_color = getIntFromUser("text", True, 0, 7) - 1
+    else:
+        mosaic_background_color = getIntFromUser("background", True, 0, 7) - 1
+    if mosaic_background_color != mosaic_text_color:
+        same_color = False
 # Prompt for name of image to be saved to device
 image_name = input("Enter name of image (image will be overwritten if already exists): ")
 
@@ -109,8 +119,11 @@ rows = generate_grid(mosaic_background_color, width_cubes, height_cubes)
 current_x = 1
 current_y = 1
 
+# Determine how many words can fit on each line within the users mosaic dimensions
+# Determine how many lines will be needed
+
 # Add text to matrix array
-rows = letters.drawW(rows, current_x, current_y, mosaic_text_color)
+# EX: rows = letters.drawW(rows, current_x, current_y, mosaic_text_color)
 
 # Generate the image
 generateImage(rows, width_cubes, height_cubes, image_name)
