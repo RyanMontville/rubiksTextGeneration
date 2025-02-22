@@ -1,4 +1,13 @@
 def drawA(rows, current_x, current_y, text_color, background_color):
+    """
+    Adds the letter A to the mosaic matrix array at the current coordinates
+    Args:
+        rows: The matrix array of mosaic pieces
+        current_x: The x coordinate where the top left of the letter will be inserted
+        current_y: The y coordinate where the top left of the letter will be inserted
+        text_color: The color of the text
+        background_color: The color of the background of the mosaic
+    """
     altered_rows = rows
     # first col
     rows[current_y][current_x] = text_color
