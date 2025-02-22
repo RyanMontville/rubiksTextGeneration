@@ -1,12 +1,12 @@
 def drawA(rows, current_x, current_y, text_color, background_color):
     """
     Adds the letter A to the mosaic matrix array at the current coordinates
-    Args:
-        rows: The matrix array of mosaic pieces
-        current_x: The x coordinate where the top left of the letter will be inserted
-        current_y: The y coordinate where the top left of the letter will be inserted
-        text_color: The color of the text
-        background_color: The color of the background of the mosaic
+    :param rows: The matrix array of mosaic pieces
+    :param current_x: The x coordinate where the top left of the letter will be inserted
+    :param current_y: The y coordinate where the top left of the letter will be inserted
+    :param text_color: The color of the text
+    :param background_color: The color of the background of the mosaic
+    :returns the altered matrix array of pieces
     """
     altered_rows = rows
     # first column
