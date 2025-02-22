@@ -1,5 +1,6 @@
 from PIL import Image
-from letters import drawA
+import letters
+import otherCharacters
 
 # Change order so the program asks for text first, then makes all calculations, then recomends min number of
 # cubes and dimensions of the mosaic
@@ -93,7 +94,7 @@ rows = generate_grid(mosaic_background_color, width_cubes, height_cubes)
 current_x = 1
 current_y = 1
 
-rows = drawA(rows, current_x, current_y, mosaic_text_color, mosaic_background_color)
+rows = letters.drawB(rows, current_x, current_y, mosaic_text_color, mosaic_background_color)
 
 img = generateImage(rows, width_cubes, height_cubes)
 enlargeImage(img, image_name)
