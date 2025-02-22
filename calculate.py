@@ -2,6 +2,7 @@
     It will also determine if a word is too long and must be split into multiple lines
     If text includes ' or ? shift row down one more pixel. 6 pixels tall instead of 5
 """
+import math
 
 
 def widthOfCharacter(character):
@@ -24,16 +25,41 @@ def widthOfCharacter(character):
             return 2
 
 
-def calculateWidthOfWord(word):
+def calculateSizeOfWord(word):
     """Returns the number of pixels wide a word is
     :param word: The word to calculate the width of
-    :returns the number of pieces needed to draw the word"""
+    :returns the number of pieces needed to draw the word in both width and height"""
     characters = list(word)
     width_of_word = 0
     for character in characters:
         width_of_word += widthOfCharacter(character)
     width_of_word += len(characters) - 1
-    return width_of_word
+    if "?" in word or "'" in word:
+        return width_of_word, 6
+    else:
+        return width_of_word, 5
+
+
+def calculateMinimumSize(text):
+    """Calculates the minimum dimensions of the mosaic
+    :param text: The text to be drawn in the mosaic
+    :returns the minimum number of cube needed to draw the text"""
+    min_width = 0
+    min_height = 0
+    min_cubes_tall = 0
+    min_cubes_wide = 0
+    words = text.split()
+    for word in words:
+        size = calculateSizeOfWord(word)
+        if size[0] > min_width:
+            min_width = size[0]
+        min_height += size[1]
+    min_height += len(words) + 1
+    min_width += 2
+    min_cubes_tall = math.ceil(min_height / 3)
+    min_cubes_wide = math.ceil(min_width / 3)
+
+    return min_cubes_wide, min_cubes_tall
 
 
 def determineTextBreak(text):
