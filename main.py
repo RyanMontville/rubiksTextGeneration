@@ -1,34 +1,19 @@
 from PIL import Image
 from letters import drawA
 
+# red, orange, yellow, green, blue, white
+colors = [(255, 0, 0), (255, 165, 0), (255, 255, 0), (50, 205, 50), (0, 0, 255), (255, 255, 255)]
+
 
 def generate_grid(background_color, width, height):
-    mosaic_pixel_width = width * 3
-    mosaic_pixel_height = height * 3
     grid = []
-    for y in range(mosaic_pixel_height):
+    for y in range(height):
         row = []
-        for x in range(mosaic_pixel_width):
+        for x in range(width):
             row.append(background_color)
         grid.append(row)
 
     return grid
-
-
-def color_name_to_rgb(color_name):
-    match color_name:
-        case "red":
-            return 255, 0, 0
-        case "yellow":
-            return 255, 255, 0
-        case "orange":
-            return 255, 165, 0
-        case "green":
-            return 50, 205, 50
-        case "blue":
-            return 0, 0, 255
-        case "white":
-            return 255, 255, 255
 
 
 def enlargeImage(original_image, new_image_name):
@@ -36,31 +21,48 @@ def enlargeImage(original_image, new_image_name):
     original_width, original_height = image.size
     new_size = (original_width * 50, original_height * 50)
     larger_image = image.resize(new_size, Image.NEAREST)
-    larger_image.save(new_image_name)
+    larger_image.save(f"{new_image_name}.png")
     larger_image.show()
 
 
-def generateImage(pixel_rows):
-    img_small = Image.new('RGB', (30, 30), "WHITE")
-    for y in range(len(rows)):
-        row = rows[y]
+def generateImage(pixel_rows, width, height):
+    img_small = Image.new('RGB', (width, height), "WHITE")
+    for y in range(len(pixel_rows)):
+        row = pixel_rows[y]
         for x in range(len(row)):
-            color_name = row[x]
-            color_rgb = color_name_to_rgb(color_name)
+            color_rgb = colors[row[x]]
             img_small.putpixel((x, y), color_rgb)
     return img_small
 
 
-mosaic_background_color = input("Enter background color [red, orange, yellow, green, blue, white]: ")
-mosaic_text_color = input("Enter text color [red, orange, yellow, green, blue, white]: ")
-width_cubes = int(input("Enter how many cubes wide the mosaic will be: "))
-height_cubes = int(input("Enter how many cubes tall the mosaic will be: "))
-print(f"{width_cubes} cubes wide * {height_cubes} cubes tall = {width_cubes * height_cubes} cubes total")
-rows = generate_grid(mosaic_background_color, 10, 10)
+def getIntFromUser(prompt, is_color, max_num):
+    is_input_number = False
+    while not is_input_number:
+        if is_color:
+            response = input(f"Enter the number of the color for the {prompt} color [1: red, 2: orange, 3: yellow, 4: green, 5: blue, 6: white]: ")
+        else:
+            response = input(f"Enter how many cubes {prompt} the mosaic will be: ")
+        try:
+            int(response)
+            if int(response) < max_num:
+                return int(response)
+            else:
+                print(f"Please enter a number less than {max_num}")
+        except ValueError:
+            print("Please enter a number")
+
+
+mosaic_background_color = getIntFromUser("background", True, 7) - 1
+mosaic_text_color = getIntFromUser("text", True, 7) - 1
+width_cubes = getIntFromUser("wide", False, 100) * 3
+height_cubes = getIntFromUser("tall", False, 100) * 3
+print(f"{int(width_cubes / 3)} cubes wide * {int(height_cubes / 3)} cubes tall = {int((width_cubes / 3)  * (height_cubes / 3))} cubes total")
+image_name = input("Enter name of image (image will be overwritten if already exists): ")
+rows = generate_grid(mosaic_background_color, width_cubes, height_cubes)
 current_x = 1
 current_y = 1
 
 rows = drawA(rows, current_x, current_y, mosaic_text_color, mosaic_background_color)
 
-img = generateImage(rows)
-enlargeImage(img, "final.png")
+img = generateImage(rows, width_cubes, height_cubes)
+enlargeImage(img, image_name)
