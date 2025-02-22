@@ -102,3 +102,35 @@ def drawApostrophe(rows, current_x, current_y, text_color, background_color):
     altered_rows = rows
 
     return altered_rows
+
+
+def drawSpace(rows, current_x, current_y, text_color, background_color):
+    """ See documentation for draw1() """
+    altered_rows = rows
+    # first column
+    rows[current_y][current_x] = background_color
+    rows[current_y + 1][current_x] = background_color
+    rows[current_y + 2][current_x] = background_color
+    rows[current_y + 3][current_x] = background_color
+    rows[current_y + 4][current_x] = background_color
+    # second column
+    rows[current_y][current_x + 1] = background_color
+    rows[current_y + 1][current_x + 1] = background_color
+    rows[current_y + 2][current_x + 1] = background_color
+    rows[current_y + 3][current_x + 1] = background_color
+    rows[current_y + 4][current_x + 1] = background_color
+
+    return altered_rows
+
+
+def drawBetweenLetters(rows, current_x, current_y, text_color, background_color):
+    """ See documentation for draw1() """
+    altered_rows = rows
+    # first column
+    rows[current_y][current_x] = background_color
+    rows[current_y + 1][current_x] = background_color
+    rows[current_y + 2][current_x] = background_color
+    rows[current_y + 3][current_x] = background_color
+    rows[current_y + 4][current_x] = background_color
+
+    return altered_rows

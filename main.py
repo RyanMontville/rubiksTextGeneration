@@ -94,7 +94,7 @@ rows = generate_grid(mosaic_background_color, width_cubes, height_cubes)
 current_x = 1
 current_y = 1
 
-rows = letters.drawB(rows, current_x, current_y, mosaic_text_color, mosaic_background_color)
+rows = letters.drawW(rows, current_x, current_y, mosaic_text_color, mosaic_background_color)
 
 img = generateImage(rows, width_cubes, height_cubes)
 enlargeImage(img, image_name)
