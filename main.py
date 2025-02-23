@@ -80,6 +80,106 @@ def getIntFromUser(prompt, is_color, min_num, max_num):
             print("Please enter a number")
 
 
+def drawCharacter(character, x_cord, y_cord, mosaic_grid, text_color, is_first_character):
+    """Adds the letter to the mosaic array and moves the x coordinate to the proper spot for the next character.
+    :param character: the current character to add to the mosaic
+    :param x_cord: the x coordinate of the top left corner of the character
+    :param y_cord: the y coordinate of the top left corner of the character
+    :param mosaic_grid: the mosaic grid to add the character pieces to
+    :param text_color: the color of the text
+    :param is_first_character: boolean to tell the function to not add a space before the first letter
+    :returns (updated_grid, x_cord)"""
+    updated_grid = []
+    if not is_first_character:
+        x_cord += 1
+    match character:
+        case "a":
+            updated_grid = letters.drawA(mosaic_grid, x_cord, y_cord, text_color)
+        case "b":
+            updated_grid = letters.drawB(mosaic_grid, x_cord, y_cord, text_color)
+        case "c":
+            updated_grid = letters.drawC(mosaic_grid, x_cord, y_cord, text_color)
+        case "d":
+            updated_grid = letters.drawD(mosaic_grid, x_cord, y_cord, text_color)
+        case "e":
+            updated_grid = letters.drawE(mosaic_grid, x_cord, y_cord, text_color)
+        case "f":
+            updated_grid = letters.drawF(mosaic_grid, x_cord, y_cord, text_color)
+        case "g":
+            updated_grid = letters.drawG(mosaic_grid, x_cord, y_cord, text_color)
+        case "h":
+            updated_grid = letters.drawH(mosaic_grid, x_cord, y_cord, text_color)
+        case "i":
+            updated_grid = letters.drawI(mosaic_grid, x_cord, y_cord, text_color)
+        case "j":
+            updated_grid = letters.drawJ(mosaic_grid, x_cord, y_cord, text_color)
+        case "k":
+            updated_grid = letters.drawK(mosaic_grid, x_cord, y_cord, text_color)
+        case "l":
+            updated_grid = letters.drawL(mosaic_grid, x_cord, y_cord, text_color)
+        case "m":
+            updated_grid = letters.drawM(mosaic_grid, x_cord, y_cord, text_color)
+        case "n":
+            updated_grid = letters.drawN(mosaic_grid, x_cord, y_cord, text_color)
+        case "o":
+            updated_grid = letters.drawO(mosaic_grid, x_cord, y_cord, text_color)
+        case "p":
+            updated_grid = letters.drawP(mosaic_grid, x_cord, y_cord, text_color)
+        case "q":
+            updated_grid = letters.drawQ(mosaic_grid, x_cord, y_cord, text_color)
+        case "r":
+            updated_grid = letters.drawR(mosaic_grid, x_cord, y_cord, text_color)
+        case "s":
+            updated_grid = letters.drawS(mosaic_grid, x_cord, y_cord, text_color)
+        case "t":
+            updated_grid = letters.drawT(mosaic_grid, x_cord, y_cord, text_color)
+        case "u":
+            updated_grid = letters.drawU(mosaic_grid, x_cord, y_cord, text_color)
+        case "v":
+            updated_grid = letters.drawV(mosaic_grid, x_cord, y_cord, text_color)
+        case "w":
+            updated_grid = letters.drawW(mosaic_grid, x_cord, y_cord, text_color)
+        case "x":
+            updated_grid = letters.drawX(mosaic_grid, x_cord, y_cord, text_color)
+        case "y":
+            updated_grid = letters.drawY(mosaic_grid, x_cord, y_cord, text_color)
+        case "z":
+            updated_grid = letters.drawZ(mosaic_grid, x_cord, y_cord, text_color)
+        case "0":
+            updated_grid = otherCharacters.draw0(mosaic_grid, x_cord, y_cord, text_color)
+        case "1":
+            updated_grid = otherCharacters.draw1(mosaic_grid, x_cord, y_cord, text_color)
+        case "2":
+            updated_grid = otherCharacters.draw2(mosaic_grid, x_cord, y_cord, text_color)
+        case "3":
+            updated_grid = otherCharacters.draw3(mosaic_grid, x_cord, y_cord, text_color)
+        case "4":
+            updated_grid = otherCharacters.draw4(mosaic_grid, x_cord, y_cord, text_color)
+        case "5":
+            updated_grid = otherCharacters.draw5(mosaic_grid, x_cord, y_cord, text_color)
+        case "6":
+            updated_grid = otherCharacters.draw6(mosaic_grid, x_cord, y_cord, text_color)
+        case "7":
+            updated_grid = otherCharacters.draw7(mosaic_grid, x_cord, y_cord, text_color)
+        case "8":
+            updated_grid = otherCharacters.draw8(mosaic_grid, x_cord, y_cord, text_color)
+        case "9":
+            updated_grid = otherCharacters.draw9(mosaic_grid, x_cord, y_cord, text_color)
+        case "?":
+            updated_grid = otherCharacters.drawQuestion(mosaic_grid, x_cord, y_cord, text_color)
+        case "'":
+            updated_grid = otherCharacters.drawApostrophe(mosaic_grid, x_cord, y_cord, text_color)
+        case "!":
+            updated_grid = otherCharacters.drawExclamation(mosaic_grid, x_cord, y_cord, text_color)
+        case "#":
+            updated_grid = otherCharacters.drawPound(mosaic_grid, x_cord, y_cord, text_color)
+        case _:
+            pass
+
+    x_cord += calculate.widthOfCharacter(character)
+    return updated_grid, x_cord
+
+
 # First prompt for text
 text_for_mosaic = input("Enter the text for the mosaic: ").lower()
 
@@ -124,18 +224,33 @@ image_name = input("Enter name of image (image will be overwritten if already ex
 final_lines = calculate.make_lines_list(text_for_mosaic, width_in_pieces)
 # Generate matrix array of pieces all set to background color
 rows = generate_grid(mosaic_background_color, width_in_pieces, height_in_pieces)
-current_x = 1
-current_y = 1
-
-# This list stores the text for the line, the height of the line, and how many pieces are needed before the text to
-# center the text on the mosaic
+# The line_spacing list stores the text for the line, the height of the line,
+# and how many pieces are needed before the text to center the text on the mosaic
 line_spacing = []
 for line in final_lines:
     pieces_before = calculate.centerText(line[0], width_in_pieces)
     line_spacing.append((line[0], line[1], pieces_before))
 
 # Add text to matrix array
-# EX: rows = letters.drawW(rows, current_x, current_y, mosaic_text_color)
+current_x = 0
+current_y = 1
+for line in line_spacing:
+    if line[1] == 6:
+        current_y += 1
+    # current_x = line[2]
+    print(f"x cord on first letter: {current_x}")
+    result = drawCharacter(line[0][0], current_x, current_y, rows, mosaic_text_color, True)
+    rows = result[0]
+    current_x = result[1]
+    for i in range(1, len(line[0])):
+        letter = line[0][i]
+        print(f"Letter: {letter} = X: {current_x}, Y: {current_y}")
+        result = drawCharacter(letter, current_x, current_y, rows, mosaic_text_color, False)
+        rows = result[0]
+        current_x = result[1]
+    current_x = 0
+    current_y += line[1] + 1
+
 
 # Generate the image
-# generateImage(rows, width_in_pieces, height_in_pieces, image_name)
+generateImage(rows, width_in_pieces, height_in_pieces, image_name)

@@ -16,6 +16,7 @@ def drawA(rows, current_x, current_y, text_color):
     rows[current_y + 4][current_x] = text_color
     # second column
     rows[current_y][current_x + 1] = text_color
+    rows[current_y + 2][current_x + 1] = text_color
     # third column
     rows[current_y][current_x + 2] = text_color
     rows[current_y + 1][current_x + 2] = text_color

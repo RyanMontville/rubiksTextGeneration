@@ -22,7 +22,7 @@ def widthOfCharacter(character):
         case "!" | "'":
             return 1
         case _:
-            return 2
+            return 1
 
 
 def calculateWidthOfWord(word):
@@ -39,7 +39,10 @@ def calculateWidthOfWord(word):
 
 def makeLine(text, width):
     """Given the width of the mosaic, fit as many words on a line. Will return the line as a string, the height of
-    the line, and the rest of the text as a second string."""
+    the line, and the rest of the text as a second string.
+    :param text: the text for the mosaic
+    :param width: the width of the mosaic
+    :returns (the text for the line, the height of the line, the rest of the text that doesn't fit on the line)"""
     single_line = []
     pieces_left_in_line = width
     words = text.split()
@@ -49,6 +52,8 @@ def makeLine(text, width):
             single_line.append(words[0])
             words.remove(words[0])
             pieces_left_in_line -= current_word_length
+            if len(single_line) > 1:
+                pieces_left_in_line -= 2
         else:
             break
 
@@ -64,6 +69,10 @@ def makeLine(text, width):
 
 
 def make_lines_list(text, width):
+    """Takes the text and splits the words into lines within the width provided.
+    :param text: the text for the mosaic
+    :param width: width of the mosaic
+    :returns the list of lines. Each line is a tuple of (text, the height of the line)"""
     lines = []
     rest_of_text = text
     while len(rest_of_text) > 0:
@@ -77,7 +86,7 @@ def make_lines_list(text, width):
 def calculateMinimumSize(text):
     """Calculates the minimum dimensions of the mosaic
     :param text: The text to be drawn in the mosaic
-    :returns the minimum number of cube needed to draw the text"""
+    :returns min cubes wide, min cubes tall, lines"""
     min_width = 0
     words = text.split()
     # Find the longest word. This will be the minimum width of the mosaic in pieces
@@ -102,8 +111,7 @@ def centerText(text, width):
     width_of_text = 0
     for letter in text:
         width_of_text += widthOfCharacter(letter)
-        if letter != " ":
-            width_of_text += 1
     width_of_text -= 1
     pieces_before = math.floor((width - width_of_text) / 2)
+    print(f"width of text: {width_of_text} | pieces before: {pieces_before} | width of mosaic: {width}")
     return pieces_before
