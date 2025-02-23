@@ -63,6 +63,17 @@ def makeLine(text, width):
         return line_final, 5, remaining_text
 
 
+def make_lines_list(text, width):
+    lines = []
+    rest_of_text = text
+    while len(rest_of_text) > 0:
+        result = makeLine(rest_of_text, width)
+        line_tuple = (result[0], result[1])
+        lines.append(line_tuple)
+        rest_of_text = result[2]
+    return lines
+
+
 def calculateMinimumSize(text):
     """Calculates the minimum dimensions of the mosaic
     :param text: The text to be drawn in the mosaic
@@ -76,13 +87,9 @@ def calculateMinimumSize(text):
             min_width = word_width
     # Fit as much text on each line, determine how many lines will be needed
     min_height = 0
-    lines = []
-    rest_of_text = text
-    while len(rest_of_text) > 0:
-        result = makeLine(rest_of_text, min_width)
-        lines.append(result[0])
-        min_height += result[1]
-        rest_of_text = result[2]
+    lines = make_lines_list(text, min_width)
+    for line in lines:
+        min_height += line[1]
 
     min_cubes_tall = math.ceil(min_height / 3)
     min_cubes_wide = math.ceil(min_width / 3)
@@ -90,14 +97,13 @@ def calculateMinimumSize(text):
     return min_cubes_wide, min_cubes_tall, lines
 
 
-def centerText(text):
+def centerText(text, width):
     """Returns the number of pixels to add (if any) before the text to center it on the mosaic."""
-    pass
-
-
-def recommendedDimensions():
-    """Will Determine the recommended dimensions of the mosaic"""
-    # Might remove this since calculateMinimumSize() exists, but this function might be used to optimize the best
-    # layout. Or that could also be added to calculateMinimumSize().
-    # This could also be completed using determineTextBreak()
-    pass
+    width_of_text = 0
+    for letter in text:
+        width_of_text += widthOfCharacter(letter)
+        if letter != " ":
+            width_of_text += 1
+    width_of_text -= 1
+    pieces_before = math.floor((width - width_of_text) / 2)
+    return pieces_before

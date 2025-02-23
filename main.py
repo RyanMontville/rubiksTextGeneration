@@ -82,22 +82,24 @@ def getIntFromUser(prompt, is_color, min_num, max_num):
 
 # First prompt for text
 text_for_mosaic = input("Enter the text for the mosaic: ").lower()
+
 # Calculate the minimum number of cubes needed and the recommended dimensions
 min_size = calculate.calculateMinimumSize(text_for_mosaic)
-
-# Print the minimum number of cubes needed and the recommended dimensions
+# Print the minimum number of cubes needed, the recommended dimensions, and a preview of how many lines the text will
+# be split into.
 print("\nMinimum cubes needed to make this mosaic:")
 print(f"{min_size[0]} cubes wide by {min_size[1]} cubes tall")
 print(f"{min_size[0] * min_size[1]} cubes needed in total")
 print("\nPreview with minimum dimensions: ")
 for line in min_size[2]:
-    print(line)
+    print(line[0])
+
 # Prompt for dimensions
 print("\n")
-width_cubes = getIntFromUser("wide", False, min_size[0] - 1, 100) * 3
-height_cubes = getIntFromUser("tall", False, min_size[1] - 1, 100) * 3
-print(f"Your mosaic will be {int(width_cubes / 3)} cubes wide * {int(height_cubes / 3)} cubes tall ="
-      f" {int((width_cubes / 3) * (height_cubes / 3))} cubes total")
+width_in_pieces = getIntFromUser("wide", False, min_size[0] - 1, 100) * 3
+height_in_pieces = getIntFromUser("tall", False, min_size[1] - 1, 100) * 3
+print(f"Your mosaic will be {int(width_in_pieces / 3)} cubes wide * {int(height_in_pieces / 3)} cubes tall ="
+      f" {int((width_in_pieces / 3) * (height_in_pieces / 3))} cubes total\n")
 # Prompt for colors
 mosaic_background_color = getIntFromUser("background", True, 0, 7) - 1
 mosaic_text_color = getIntFromUser("text", True, 0, 7) - 1
@@ -118,16 +120,22 @@ while same_color:
 # Prompt for name of image to be saved to device
 image_name = input("Enter name of image (image will be overwritten if already exists): ")
 
+# Create lines fo text with user's dimensions
+final_lines = calculate.make_lines_list(text_for_mosaic, width_in_pieces)
 # Generate matrix array of pieces all set to background color
-rows = generate_grid(mosaic_background_color, width_cubes, height_cubes)
+rows = generate_grid(mosaic_background_color, width_in_pieces, height_in_pieces)
 current_x = 1
 current_y = 1
 
-# Determine how many words can fit on each line within the users mosaic dimensions
-# Determine how many lines will be needed
+# This list stores the text for the line, the height of the line, and how many pieces are needed before the text to
+# center the text on the mosaic
+line_spacing = []
+for line in final_lines:
+    pieces_before = calculate.centerText(line[0], width_in_pieces)
+    line_spacing.append((line[0], line[1], pieces_before))
 
 # Add text to matrix array
 # EX: rows = letters.drawW(rows, current_x, current_y, mosaic_text_color)
 
 # Generate the image
-generateImage(rows, width_cubes, height_cubes, image_name)
+# generateImage(rows, width_in_pieces, height_in_pieces, image_name)
