@@ -25,19 +25,42 @@ def widthOfCharacter(character):
             return 2
 
 
-def calculateSizeOfWord(word):
+def calculateWidthOfWord(word):
     """Returns the number of pixels wide a word is
     :param word: The word to calculate the width of
-    :returns the number of pieces needed to draw the word in both width and height"""
+    :returns the width of the word in pieces"""
     characters = list(word)
     width_of_word = 0
     for character in characters:
         width_of_word += widthOfCharacter(character)
     width_of_word += len(characters) - 1
-    if "?" in word or "'" in word:
-        return width_of_word, 6
+    return width_of_word
+
+
+def makeLine(text, width):
+    """Given the width of the mosaic, fit as many words on a line. Will return the line as a string, the height of
+    the line, and the rest of the text as a second string."""
+    single_line = []
+    pieces_left_in_line = width
+    words = text.split()
+    while pieces_left_in_line > 0 and len(words) > 0:
+        current_word_length = calculateWidthOfWord(words[0])
+        if current_word_length <= pieces_left_in_line:
+            single_line.append(words[0])
+            words.remove(words[0])
+            pieces_left_in_line -= current_word_length
+        else:
+            break
+
+    line_final = ' '.join(single_line)
+    remaining_text = ' '.join(words)
+    # Find height of line. If line contains ' or ? the height is 6 instead of 5
+    if "?" in line_final:
+        return line_final, 6, remaining_text
+    elif "'" in line_final:
+        return line_final, 6, remaining_text
     else:
-        return width_of_word, 5
+        return line_final, 5, remaining_text
 
 
 def calculateMinimumSize(text):
@@ -45,38 +68,26 @@ def calculateMinimumSize(text):
     :param text: The text to be drawn in the mosaic
     :returns the minimum number of cube needed to draw the text"""
     min_width = 0
-    min_height = 0
-    min_cubes_tall = 0
-    min_cubes_wide = 0
     words = text.split()
+    # Find the longest word. This will be the minimum width of the mosaic in pieces
     for word in words:
-        size = calculateSizeOfWord(word)
-        if size[0] > min_width:
-            min_width = size[0]
-        min_height += size[1]
-    min_height += len(words) + 1
-    min_width += 2
+        word_width = calculateWidthOfWord(word)
+        if word_width > min_width:
+            min_width = word_width
+    # Fit as much text on each line, determine how many lines will be needed
+    min_height = 0
+    lines = []
+    rest_of_text = text
+    while len(rest_of_text) > 0:
+        result = makeLine(rest_of_text, min_width)
+        lines.append(result[0])
+        min_height += result[1]
+        rest_of_text = result[2]
+
     min_cubes_tall = math.ceil(min_height / 3)
     min_cubes_wide = math.ceil(min_width / 3)
 
-    return min_cubes_wide, min_cubes_tall
-
-
-def makeLine(text, width):
-    """Given the width of the mosaic, fit as many words on a line. Will return the line as a string and the rest of
-    the text as a second string."""
-    single_line = []
-    pieces_left_in_line = width
-    words = text.split()
-    while pieces_left_in_line > 0:
-        current_word = calculateSizeOfWord(words[0])
-        if current_word <= width:
-            single_line.append(words[0])
-            words.remove(words[0])
-        else:
-            line_final = ' '.join(single_line)
-            remaining_text = ' '.join(words)
-            return line_final, remaining_text
+    return min_cubes_wide, min_cubes_tall, lines
 
 
 def centerText(text):

@@ -3,7 +3,7 @@ import letters
 import otherCharacters
 import calculate
 
-# Change order so the program asks for text first, then makes all calculations, then recomends min number of
+# Change order so the program asks for text first, then makes all calculations, then recommends min number of
 # cubes and dimensions of the mosaic
 
 # red, orange, yellow, green, blue, white
@@ -83,13 +83,17 @@ def getIntFromUser(prompt, is_color, min_num, max_num):
 # First prompt for text
 text_for_mosaic = input("Enter the text for the mosaic: ").lower()
 # Calculate the minimum number of cubes needed and the recommended dimensions
-# (Currently puts each word on a new line)
 min_size = calculate.calculateMinimumSize(text_for_mosaic)
+
 # Print the minimum number of cubes needed and the recommended dimensions
-print("Minimum cubes needed to make this mosaic:")
+print("\nMinimum cubes needed to make this mosaic:")
 print(f"{min_size[0]} cubes wide by {min_size[1]} cubes tall")
 print(f"{min_size[0] * min_size[1]} cubes needed in total")
+print("\nPreview with minimum dimensions: ")
+for line in min_size[2]:
+    print(line)
 # Prompt for dimensions
+print("\n")
 width_cubes = getIntFromUser("wide", False, min_size[0] - 1, 100) * 3
 height_cubes = getIntFromUser("tall", False, min_size[1] - 1, 100) * 3
 print(f"Your mosaic will be {int(width_cubes / 3)} cubes wide * {int(height_cubes / 3)} cubes tall ="
