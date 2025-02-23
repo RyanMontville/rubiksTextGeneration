@@ -62,11 +62,21 @@ def calculateMinimumSize(text):
     return min_cubes_wide, min_cubes_tall
 
 
-def determineTextBreak(text):
-    """Determines whether the text can be drawn on one line or if it
-    needs to be split into multiple line.
-    :returns boolean if text can be drawn on a single line and the rest of the text if not one line"""
-    pass
+def makeLine(text, width):
+    """Given the width of the mosaic, fit as many words on a line. Will return the line as a string and the rest of
+    the text as a second string."""
+    single_line = []
+    pieces_left_in_line = width
+    words = text.split()
+    while pieces_left_in_line > 0:
+        current_word = calculateSizeOfWord(words[0])
+        if current_word <= width:
+            single_line.append(words[0])
+            words.remove(words[0])
+        else:
+            line_final = ' '.join(single_line)
+            remaining_text = ' '.join(words)
+            return line_final, remaining_text
 
 
 def centerText(text):
