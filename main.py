@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, ImageDraw
 import letters
 import otherCharacters
 import calculate
@@ -49,8 +49,43 @@ def generateImage(pixel_rows, width, height, name_of_image):
     original_width, original_height = image.size
     new_size = (original_width * 50, original_height * 50)
     larger_image = image.resize(new_size, Image.NEAREST)
+    # Draw grid lines
+    width = new_size[0]
+    height = new_size[1]
+    draw = ImageDraw.Draw(image)
+    for y in range(0, height, 20):
+        draw.line([(0, y), (width, y)], fill=(0, 0, 0))
+
     larger_image.save(f"{name_of_image}.png")
-    larger_image.show()
+    draw_grid_lines(f"{name_of_image}.png")
+
+
+def draw_grid_lines(image):
+    """
+    Draws the grid lines on the image.
+    Args:
+        image: name of the image.
+    """
+    img = Image.open(image).convert("RGB")
+    draw = ImageDraw.Draw(img)
+    width, height = img.size
+    line_count = 0
+    for y in range(0, height, 50):
+        if line_count % 3 == 0:
+            draw.line([(0, y), (width, y)], fill=(0, 0, 0), width=4)
+        else:
+            draw.line([(0, y), (width, y)], fill=(0, 0, 0))
+        line_count += 1
+    line_count = 0
+    for x in range(0, width, 50):
+        if line_count % 3 == 0:
+            draw.line([(x, 0), (x, height)], fill=(0, 0, 0), width=4)
+        else:
+            draw.line([(x, 0), (x, height)], fill=(0, 0, 0))
+        line_count += 1
+
+    img.save(image)
+    img.show()
 
 
 def getIntFromUser(prompt, is_color, min_num, max_num):
@@ -237,7 +272,7 @@ current_y = 1
 for line in line_spacing:
     if line[1] == 6:
         current_y += 1
-    # current_x = line[2]
+    # current_x = line[2] - 2 this is the centering. Fix this!!!
     print(f"x cord on first letter: {current_x}")
     result = drawCharacter(line[0][0], current_x, current_y, rows, mosaic_text_color, True)
     rows = result[0]
