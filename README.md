@@ -15,11 +15,11 @@ The program starts by asking the user for the text to be inserted into the mosai
 ## Example combinations of colors
 Here is are some examples of how different colored text will look with different colored backgrounds. (Your Rubik's cube's colors might look different than the images below.)
 <div>
-<img src="/images/red-combos.png" alt="An example of how differnt colors of text will look on a red background" title="An example of how differnt colors of text will look on a red background" style="width: 33%; display: inline-block;" />
-<img src="/images/orange-combos.png" alt="An example of how differnt colors of text will look on a orange background" title="An example of how differnt colors of text will look on a orange background" style="width: 33%; display: inline-block;" />
-<img src="/images/yellow-combos.png" alt="An example of how differnt colors of text will look on a yellow background" title="An example of how differnt colors of text will look on a yellow background" style="width: 33%; display: inline-block;" />
-<img src="/images/blue-combos.png" alt="An example of how differnt colors of text will look on a blue background" title="An example of how differnt colors of text will look on a blue background" style="width: 33%; display: inline-block;" />
-<img src="/images/green-combos.png" alt="An example of how differnt colors of text will look on a green background" title="An example of how differnt colors of text will look on a green background" style="width: 33%; display: inline-block;" />
-<img src="/images/white-combos.png" alt="An example of how differnt colors of text will look on a white background" title="An example of how differnt colors of text will look on a white background" style="width: 33%; display: inline-block;" />
+<img src="/images/red-combos.png" alt="An example of how differnt colors of text will look on a red background" title="An example of how differnt colors of text will look on a red background" style="width: 30%; display: inline-block;" />
+<img src="/images/orange-combos.png" alt="An example of how differnt colors of text will look on a orange background" title="An example of how differnt colors of text will look on a orange background" style="width: 30%; display: inline-block;" />
+<img src="/images/yellow-combos.png" alt="An example of how differnt colors of text will look on a yellow background" title="An example of how differnt colors of text will look on a yellow background" style="width: 30%; display: inline-block;" />
+<img src="/images/blue-combos.png" alt="An example of how differnt colors of text will look on a blue background" title="An example of how differnt colors of text will look on a blue background" style="width: 30%; display: inline-block;" />
+<img src="/images/green-combos.png" alt="An example of how differnt colors of text will look on a green background" title="An example of how differnt colors of text will look on a green background" style="width: 30%; display: inline-block;" />
+<img src="/images/white-combos.png" alt="An example of how differnt colors of text will look on a white background" title="An example of how differnt colors of text will look on a white background" style="width: 30%; display: inline-block;" />
 </div>
 <a href="#top">Back to top</a>
