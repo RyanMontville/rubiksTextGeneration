@@ -45,20 +45,28 @@ def makeLine(text, width):
     :returns (the text for the line, the height of the line, the rest of the text that doesn't fit on the line)"""
     single_line = []
     pieces_left_in_line = width
+    print("Making line")
     words = text.split()
     while pieces_left_in_line > 0 and len(words) > 0:
         current_word_length = calculateWidthOfWord(words[0])
         if current_word_length <= pieces_left_in_line:
+            print(f"word: {words[0]} = {current_word_length} | pieces left on line: {pieces_left_in_line}")
             single_line.append(words[0])
             words.remove(words[0])
             pieces_left_in_line -= current_word_length
             if len(single_line) > 1:
                 pieces_left_in_line -= 2
+                if pieces_left_in_line < 0:
+                    word_to_move = single_line[-1]
+                    single_line.remove(word_to_move)
+                    words.append(word_to_move)
+                    break
         else:
             break
 
     line_final = ' '.join(single_line)
     remaining_text = ' '.join(words)
+    print(f"line: {line_final} | rest of text: {remaining_text}")
     # Find height of line. If line contains ' or ? the height is 6 instead of 5
     if "?" in line_final:
         return line_final, 6, remaining_text
@@ -109,9 +117,16 @@ def calculateMinimumSize(text):
 def centerText(text, width):
     """Returns the number of pixels to add (if any) before the text to center it on the mosaic."""
     width_of_text = 0
-    for letter in text:
-        width_of_text += widthOfCharacter(letter)
-    width_of_text -= 1
+    words = text.split()
+    number_of_spaces = len(words) - 1
+    for word in words:
+        for letter in word:
+            width_of_text += widthOfCharacter(letter) + 1
+        width_of_text -= 1
+    width_of_text += number_of_spaces
     pieces_before = math.floor((width - width_of_text) / 2)
-    print(f"width of text: {width_of_text} | pieces before: {pieces_before} | width of mosaic: {width}")
+    if pieces_before < 0:
+        pieces_before = 0
+    print(f"{pieces_before} | {text} = {width_of_text} | {pieces_before} = {width}")
     return pieces_before
+

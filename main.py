@@ -61,8 +61,7 @@ def generateImage(pixel_rows, width, height, name_of_image):
 
 
 def draw_grid_lines(image):
-    """
-    Draws the grid lines on the image.
+    """Draws the grid lines on the image.
     Args:
         image: name of the image.
     """
@@ -124,6 +123,7 @@ def drawCharacter(character, x_cord, y_cord, mosaic_grid, text_color, is_first_c
     :param text_color: the color of the text
     :param is_first_character: boolean to tell the function to not add a space before the first letter
     :returns (updated_grid, x_cord)"""
+    print(f"Draw char {character} with index {x_cord}, {y_cord}")
     updated_grid = []
     if not is_first_character:
         x_cord += 1
@@ -254,9 +254,11 @@ while same_color:
         same_color = False
 # Prompt for name of image to be saved to device
 image_name = input("Enter name of image (image will be overwritten if already exists): ")
-
+output_log = open("log.txt", "a")
+output_log.write(f"----------------------------------{text_for_mosaic}----------------------------------")
 # Create lines fo text with user's dimensions
 final_lines = calculate.make_lines_list(text_for_mosaic, width_in_pieces)
+output_log.write(f"final_lines: {final_lines}")
 # Generate matrix array of pieces all set to background color
 rows = generate_grid(mosaic_background_color, width_in_pieces, height_in_pieces)
 # The line_spacing list stores the text for the line, the height of the line,
@@ -265,24 +267,36 @@ line_spacing = []
 for line in final_lines:
     pieces_before = calculate.centerText(line[0], width_in_pieces)
     line_spacing.append((line[0], line[1], pieces_before))
-
+output_log.write(f"\nline_spacing: {line_spacing}")
+for line in line_spacing:
+    print(line)
 # Add text to matrix array
 current_x = 0
 current_y = 1
 for line in line_spacing:
     if line[1] == 6:
         current_y += 1
-    # current_x = line[2] - 2 this is the centering. Fix this!!!
-    print(f"x cord on first letter: {current_x}")
-    result = drawCharacter(line[0][0], current_x, current_y, rows, mosaic_text_color, True)
-    rows = result[0]
-    current_x = result[1]
-    for i in range(1, len(line[0])):
-        letter = line[0][i]
-        print(f"Letter: {letter} = X: {current_x}, Y: {current_y}")
-        result = drawCharacter(letter, current_x, current_y, rows, mosaic_text_color, False)
+    current_x = line[2]
+    try:
+        print(f"x cord on first letter: {current_x}")
+        result = drawCharacter(line[0][0], current_x, current_y, rows, mosaic_text_color, True)
         rows = result[0]
         current_x = result[1]
+    except (ValueError, IndexError):
+        generateImage(rows, 33, 33, image_name)
+        break
+    for i in range(1, len(line[0])):
+        try:
+            letter = line[0][i]
+            output_log.write(f"\nLetter: {letter} = X: {current_x}, Y: {current_y}")
+            result = drawCharacter(letter, current_x, current_y, rows, mosaic_text_color, False)
+            rows = result[0]
+            for row in rows:
+                output_log.write(f"\n{row}")
+            current_x = result[1]
+        except (ValueError,IndexError):
+            generateImage(rows, 33, 33, image_name)
+            break
     current_x = 0
     current_y += line[1] + 1
 

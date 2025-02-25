@@ -146,6 +146,7 @@ def drawG(rows, current_x, current_y, text_color):
 
 def drawH(rows, current_x, current_y, text_color):
     """See documentation for drawA()"""
+    print(f"{current_x}, {current_y}")
     altered_rows = rows
     # first column
     rows[current_y][current_x] = text_color
@@ -167,6 +168,7 @@ def drawH(rows, current_x, current_y, text_color):
 
 def drawI(rows, current_x, current_y, text_color):
     """See documentation for drawA()"""
+    print(f"{current_x}, {current_y}")
     altered_rows = rows
     # first column
     rows[current_y][current_x] = text_color
@@ -380,6 +382,7 @@ def drawR(rows, current_x, current_y, text_color):
 
 def drawS(rows, current_x, current_y, text_color):
     """See documentation for drawA()"""
+    print(f"{current_x}, {current_y}")
     altered_rows = rows
     # first column
     rows[current_y][current_x] = text_color
@@ -400,6 +403,7 @@ def drawS(rows, current_x, current_y, text_color):
 
 
 def drawT(rows, current_x, current_y, text_color):
+    print(f"{current_x}, {current_y}")
     """See documentation for drawA()"""
     altered_rows = rows
     # first column
