@@ -1,4 +1,3 @@
-<a id='top'></a>
 # Rubiks Text Generation
 I like Rubik's Cubes. My average time to solve a 3X3 is about a minute. I wanted to explore creating Rubik's Cube mosaics, so I purchased 100 "Magic Cubes" for 12 cents each. Whenever I want to add text to a mosaic, I stuggle to get the letters and spacing correct, so I created this program to help me generate the text.
 
@@ -22,7 +21,6 @@ Here is are some examples of how different colored text will look with different
     <img src="/images/green-combos.png" alt="An example of how differnt colors of text will look on a green background" title="An example of how differnt colors of text will look on a green background" style="width: 30%; display: inline-block;" />
     <img src="/images/white-combos.png" alt="An example of how differnt colors of text will look on a white background" title="An example of how differnt colors of text will look on a white background" style="width: 30%; display: inline-block;" />
 </div>
-<a href="#top">Back to top</a>
 
 ## Examples of images generated with the program
 <div>

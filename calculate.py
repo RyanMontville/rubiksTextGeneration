@@ -22,7 +22,7 @@ def widthOfCharacter(character):
         case "!" | "'":
             return 1
         case _:
-            return 1
+            return 0
 
 
 def calculateWidthOfWord(word):

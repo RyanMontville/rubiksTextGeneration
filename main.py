@@ -122,8 +122,6 @@ def drawCharacter(character, x_cord, y_cord, mosaic_grid, text_color):
     :param mosaic_grid: the mosaic grid to add the character pieces to
     :param text_color: the color of the text
     :returns (updated_grid, x_cord)"""
-    print(f"Draw char {character} with index {x_cord}, {y_cord}")
-    updated_grid = []
     match character:
         case "a":
             updated_grid = letters.drawA(mosaic_grid, x_cord, y_cord, text_color)
@@ -206,7 +204,7 @@ def drawCharacter(character, x_cord, y_cord, mosaic_grid, text_color):
         case "#":
             updated_grid = otherCharacters.drawPound(mosaic_grid, x_cord, y_cord, text_color)
         case _:
-            pass
+            updated_grid = mosaic_grid
 
     x_cord += calculate.widthOfCharacter(character)
     return updated_grid, x_cord
