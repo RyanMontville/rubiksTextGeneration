@@ -114,19 +114,16 @@ def getIntFromUser(prompt, is_color, min_num, max_num):
             print("Please enter a number")
 
 
-def drawCharacter(character, x_cord, y_cord, mosaic_grid, text_color, is_first_character):
+def drawCharacter(character, x_cord, y_cord, mosaic_grid, text_color):
     """Adds the letter to the mosaic array and moves the x coordinate to the proper spot for the next character.
     :param character: the current character to add to the mosaic
     :param x_cord: the x coordinate of the top left corner of the character
     :param y_cord: the y coordinate of the top left corner of the character
     :param mosaic_grid: the mosaic grid to add the character pieces to
     :param text_color: the color of the text
-    :param is_first_character: boolean to tell the function to not add a space before the first letter
     :returns (updated_grid, x_cord)"""
     print(f"Draw char {character} with index {x_cord}, {y_cord}")
     updated_grid = []
-    if not is_first_character:
-        x_cord += 1
     match character:
         case "a":
             updated_grid = letters.drawA(mosaic_grid, x_cord, y_cord, text_color)
@@ -235,6 +232,7 @@ width_in_pieces = getIntFromUser("wide", False, min_size[0] - 1, 100) * 3
 height_in_pieces = getIntFromUser("tall", False, min_size[1] - 1, 100) * 3
 print(f"Your mosaic will be {int(width_in_pieces / 3)} cubes wide * {int(height_in_pieces / 3)} cubes tall ="
       f" {int((width_in_pieces / 3) * (height_in_pieces / 3))} cubes total\n")
+
 # Prompt for colors
 mosaic_background_color = getIntFromUser("background", True, 0, 7) - 1
 mosaic_text_color = getIntFromUser("text", True, 0, 7) - 1
@@ -252,13 +250,13 @@ while same_color:
         mosaic_background_color = getIntFromUser("background", True, 0, 7) - 1
     if mosaic_background_color != mosaic_text_color:
         same_color = False
+
 # Prompt for name of image to be saved to device
 image_name = input("Enter name of image (image will be overwritten if already exists): ")
-output_log = open("log.txt", "a")
-output_log.write(f"----------------------------------{text_for_mosaic}----------------------------------")
-# Create lines fo text with user's dimensions
+
+# Create lines of text with user's dimensions
 final_lines = calculate.make_lines_list(text_for_mosaic, width_in_pieces)
-output_log.write(f"final_lines: {final_lines}")
+
 # Generate matrix array of pieces all set to background color
 rows = generate_grid(mosaic_background_color, width_in_pieces, height_in_pieces)
 # The line_spacing list stores the text for the line, the height of the line,
@@ -267,39 +265,19 @@ line_spacing = []
 for line in final_lines:
     pieces_before = calculate.centerText(line[0], width_in_pieces)
     line_spacing.append((line[0], line[1], pieces_before))
-output_log.write(f"\nline_spacing: {line_spacing}")
 for line in line_spacing:
     print(line)
-# Add text to matrix array
-current_x = 0
-current_y = 1
-for line in line_spacing:
-    if line[1] == 6:
-        current_y += 1
-    current_x = line[2]
-    try:
-        print(f"x cord on first letter: {current_x}")
-        result = drawCharacter(line[0][0], current_x, current_y, rows, mosaic_text_color, True)
-        rows = result[0]
-        current_x = result[1]
-    except (ValueError, IndexError):
-        generateImage(rows, 33, 33, image_name)
-        break
-    for i in range(1, len(line[0])):
-        try:
-            letter = line[0][i]
-            output_log.write(f"\nLetter: {letter} = X: {current_x}, Y: {current_y}")
-            result = drawCharacter(letter, current_x, current_y, rows, mosaic_text_color, False)
-            rows = result[0]
-            for row in rows:
-                output_log.write(f"\n{row}")
-            current_x = result[1]
-        except (ValueError,IndexError):
-            generateImage(rows, 33, 33, image_name)
-            break
-    current_x = 0
-    current_y += line[1] + 1
 
+y_cord = 1
+for line in line_spacing:
+    x_cord = line[2]
+    for character in line[0]:
+        result = drawCharacter(character, x_cord, y_cord, rows, mosaic_text_color)
+        rows = result[0]
+        x_cord = result[1]
+        if x_cord < width_in_pieces:
+            x_cord += 1
+    y_cord += line[1] + 1
 
 # Generate the image
 generateImage(rows, width_in_pieces, height_in_pieces, image_name)

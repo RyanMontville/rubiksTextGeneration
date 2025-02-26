@@ -45,12 +45,10 @@ def makeLine(text, width):
     :returns (the text for the line, the height of the line, the rest of the text that doesn't fit on the line)"""
     single_line = []
     pieces_left_in_line = width
-    print("Making line")
     words = text.split()
     while pieces_left_in_line > 0 and len(words) > 0:
         current_word_length = calculateWidthOfWord(words[0])
         if current_word_length <= pieces_left_in_line:
-            print(f"word: {words[0]} = {current_word_length} | pieces left on line: {pieces_left_in_line}")
             single_line.append(words[0])
             words.remove(words[0])
             pieces_left_in_line -= current_word_length
@@ -66,7 +64,6 @@ def makeLine(text, width):
 
     line_final = ' '.join(single_line)
     remaining_text = ' '.join(words)
-    print(f"line: {line_final} | rest of text: {remaining_text}")
     # Find height of line. If line contains ' or ? the height is 6 instead of 5
     if "?" in line_final:
         return line_final, 6, remaining_text
@@ -107,6 +104,7 @@ def calculateMinimumSize(text):
     lines = make_lines_list(text, min_width)
     for line in lines:
         min_height += line[1]
+    min_height += len(lines)
 
     min_cubes_tall = math.ceil(min_height / 3)
     min_cubes_wide = math.ceil(min_width / 3)
@@ -127,6 +125,7 @@ def centerText(text, width):
     pieces_before = math.floor((width - width_of_text) / 2)
     if pieces_before < 0:
         pieces_before = 0
+    print("centerText function says:")
     print(f"{pieces_before} | {text} = {width_of_text} | {pieces_before} = {width}")
     return pieces_before
 
