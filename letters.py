@@ -1,539 +1,205 @@
-def drawA(rows, current_x, current_y, text_color):
+def drawA(current_x, current_y):
     """
     Adds the letter A to the mosaic matrix array at the current coordinates
-    :param rows: The matrix array of mosaic pieces
     :param current_x: The x coordinate where the top left of the letter will be inserted
     :param current_y: The y coordinate where the top left of the letter will be inserted
-    :param text_color: The color of the text
-    :returns the altered matrix array of pieces
+    :returns a list of pixel coordinates
     """
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 1][current_x] = text_color
-    rows[current_y + 2][current_x] = text_color
-    rows[current_y + 3][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y][current_x + 1] = text_color
-    rows[current_y + 2][current_x + 1] = text_color
-    # third column
-    rows[current_y][current_x + 2] = text_color
-    rows[current_y + 1][current_x + 2] = text_color
-    rows[current_y + 2][current_x + 2] = text_color
-    rows[current_y + 3][current_x + 2] = text_color
-    rows[current_y + 4][current_x + 2] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 1), (current_x, current_y + 2),
+            (current_x, current_y + 3), (current_x, current_y + 4), (current_x + 1, current_y),
+            (current_x + 1, current_y + 2), (current_x + 2, current_y), (current_x + 2, current_y + 1),
+            (current_x + 2, current_y + 2), (current_x + 2, current_y + 3), (current_x + 2, current_y + 4)]
 
 
-def drawB(rows, current_x, current_y, text_color):
+def drawB(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 1][current_x] = text_color
-    rows[current_y + 2][current_x] = text_color
-    rows[current_y + 3][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y][current_x + 1] = text_color
-    rows[current_y + 2][current_x + 1] = text_color
-    rows[current_y + 4][current_x + 1] = text_color
-    # third column
-    rows[current_y + 1][current_x + 2] = text_color
-    rows[current_y + 3][current_x + 2] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 1), (current_x, current_y + 2),
+            (current_x, current_y + 3), (current_x, current_y + 4), (current_x + 1, current_y),
+            (current_x + 1, current_y + 2), (current_x + 1, current_y + 4), (current_x + 2, current_y + 1),
+            (current_x + 2, current_y + 3)]
 
 
-def drawC(rows, current_x, current_y, text_color):
+def drawC(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 1][current_x] = text_color
-    rows[current_y + 2][current_x] = text_color
-    rows[current_y + 3][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y][current_x + 1] = text_color
-    rows[current_y + 4][current_x + 1] = text_color
-    # third column
-    rows[current_y][current_x + 2] = text_color
-    rows[current_y + 4][current_x + 2] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 1), (current_x, current_y + 2),
+            (current_x, current_y + 3), (current_x, current_y + 4), (current_x + 1, current_y),
+            (current_x + 1, current_y + 4), (current_x + 2, current_y), (current_x + 2, current_y + 4)]
 
 
-def drawD(rows, current_x, current_y, text_color):
+def drawD(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 1][current_x] = text_color
-    rows[current_y + 2][current_x] = text_color
-    rows[current_y + 3][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y][current_x + 1] = text_color
-    rows[current_y + 4][current_x + 1] = text_color
-    # third column
-    rows[current_y + 1][current_x + 2] = text_color
-    rows[current_y + 2][current_x + 2] = text_color
-    rows[current_y + 3][current_x + 2] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 1), (current_x, current_y + 2),
+            (current_x, current_y + 3), (current_x, current_y + 4), (current_x + 1, current_y),
+            (current_x + 1, current_y + 4), (current_x + 2, current_y + 1), (current_x + 2, current_y + 2),
+            (current_x + 2, current_y + 3)]
 
 
-def drawE(rows, current_x, current_y, text_color):
+def drawE(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 1][current_x] = text_color
-    rows[current_y + 2][current_x] = text_color
-    rows[current_y + 3][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y][current_x + 1] = text_color
-    rows[current_y + 2][current_x + 1] = text_color
-    rows[current_y + 4][current_x + 1] = text_color
-    # third column
-    rows[current_y][current_x + 2] = text_color
-    rows[current_y + 4][current_x + 2] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 1), (current_x, current_y + 2),
+            (current_x, current_y + 3), (current_x, current_y + 4), (current_x + 1, current_y),
+            (current_x + 1, current_y + 2), (current_x + 1, current_y + 4), (current_x + 2, current_y),
+            (current_x + 2, current_y + 4)]
 
 
-def drawF(rows, current_x, current_y, text_color):
+def drawF(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 1][current_x] = text_color
-    rows[current_y + 2][current_x] = text_color
-    rows[current_y + 3][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y][current_x + 1] = text_color
-    rows[current_y + 2][current_x + 1] = text_color
-    # third column
-    rows[current_y][current_x + 2] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 1), (current_x, current_y + 2),
+            (current_x, current_y + 3), (current_x, current_y + 4), (current_x + 1, current_y),
+            (current_x + 1, current_y + 2)]
 
 
-def drawG(rows, current_x, current_y, text_color):
+def drawG(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 1][current_x] = text_color
-    rows[current_y + 2][current_x] = text_color
-    rows[current_y + 3][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y][current_x + 1] = text_color
-    rows[current_y + 4][current_x + 1] = text_color
-    # third column
-    rows[current_y][current_x + 2] = text_color
-    rows[current_y + 3][current_x + 2] = text_color
-    rows[current_y + 4][current_x + 2] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 1), (current_x, current_y + 2),
+            (current_x, current_y + 3), (current_x, current_y + 4), (current_x + 1, current_y),
+            (current_x + 1, current_y + 4), (current_x + 2, current_y), (current_x + 2, current_y + 3),
+            (current_x + 2, current_y + 4)]
 
 
-def drawH(rows, current_x, current_y, text_color):
+def drawH(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 1][current_x] = text_color
-    rows[current_y + 2][current_x] = text_color
-    rows[current_y + 3][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y + 2][current_x + 1] = text_color
-    # third column
-    rows[current_y][current_x + 2] = text_color
-    rows[current_y + 1][current_x + 2] = text_color
-    rows[current_y + 2][current_x + 2] = text_color
-    rows[current_y + 3][current_x + 2] = text_color
-    rows[current_y + 4][current_x + 2] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 1), (current_x, current_y + 2),
+            (current_x, current_y + 3), (current_x, current_y + 4), (current_x + 1, current_y + 2),
+            (current_x + 2, current_y), (current_x + 2, current_y + 1), (current_x + 2, current_y + 2),
+            (current_x + 2, current_y + 3), (current_x + 2, current_y + 4), ]
 
 
-def drawI(rows, current_x, current_y, text_color):
+def drawI(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y][current_x + 1] = text_color
-    rows[current_y + 1][current_x + 1] = text_color
-    rows[current_y + 2][current_x + 1] = text_color
-    rows[current_y + 3][current_x + 1] = text_color
-    rows[current_y + 4][current_x + 1] = text_color
-    # third column
-    rows[current_y][current_x + 2] = text_color
-    rows[current_y + 4][current_x + 2] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 4), (current_x + 1, current_y),
+            (current_x + 1, current_y + 1), (current_x + 1, current_y + 2), (current_x + 1, current_y + 3),
+            (current_x + 1, current_y + 4), (current_x + 2, current_y), (current_x + 2, current_y + 4)]
 
 
-def drawJ(rows, current_x, current_y, text_color):
+def drawJ(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 3][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y][current_x + 1] = text_color
-    rows[current_y + 4][current_x + 1] = text_color
-    # third column
-    rows[current_y][current_x + 2] = text_color
-    rows[current_y + 1][current_x + 2] = text_color
-    rows[current_y + 2][current_x + 2] = text_color
-    rows[current_y + 3][current_x + 2] = text_color
-    rows[current_y + 4][current_x + 2] = text_color
-    # fourth column
-    rows[current_y][current_x + 3] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 3), (current_x, current_y + 4),
+            (current_x + 1, current_y), (current_x + 1, current_y + 4), (current_x + 2, current_y),
+            (current_x + 2, current_y + 1), (current_x + 2, current_y + 2), (current_x + 2, current_y + 3),
+            (current_x + 2, current_y + 4), (current_x + 3, current_y)]
 
 
-def drawK(rows, current_x, current_y, text_color):
+def drawK(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 1][current_x] = text_color
-    rows[current_y + 2][current_x] = text_color
-    rows[current_y + 3][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y + 2][current_x + 1] = text_color
-    # third column
-    rows[current_y][current_x + 2] = text_color
-    rows[current_y + 1][current_x + 2] = text_color
-    rows[current_y + 3][current_x + 2] = text_color
-    rows[current_y + 4][current_x + 2] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 1), (current_x, current_y + 2),
+            (current_x, current_y + 3), (current_x, current_y + 4), (current_x + 1, current_y + 2),
+            (current_x + 2, current_y), (current_x + 2, current_y + 1), (current_x + 2, current_y + 3),
+            (current_x + 2, current_y + 4)]
 
 
-def drawL(rows, current_x, current_y, text_color):
+def drawL(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 1][current_x] = text_color
-    rows[current_y + 2][current_x] = text_color
-    rows[current_y + 3][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y + 4][current_x + 1] = text_color
-    # third column
-    rows[current_y + 4][current_x + 2] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 1), (current_x, current_y + 2),
+            (current_x, current_y + 3), (current_x, current_y + 4), (current_x + 1, current_y + 4),
+            (current_x + 2, current_y + 4)]
 
 
-def drawM(rows, current_x, current_y, text_color):
+def drawM(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 1][current_x] = text_color
-    rows[current_y + 2][current_x] = text_color
-    rows[current_y + 3][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y + 1][current_x + 1] = text_color
-    # third column
-    rows[current_y + 2][current_x + 2] = text_color
-    # fourth column
-    rows[current_y + 1][current_x + 3] = text_color
-    # fifth column
-    rows[current_y][current_x + 4] = text_color
-    rows[current_y + 1][current_x + 4] = text_color
-    rows[current_y + 2][current_x + 4] = text_color
-    rows[current_y + 3][current_x + 4] = text_color
-    rows[current_y + 4][current_x + 4] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 1), (current_x, current_y + 2),
+            (current_x, current_y + 3), (current_x, current_y + 4), (current_x + 1, current_y + 1),
+            (current_x + 2, current_y + 2), (current_x + 3, current_y + 1), (current_x + 4, current_y),
+            (current_x + 4, current_y + 1), (current_x + 4, current_y + 2), (current_x + 4, current_y + 3),
+            (current_x + 4, current_y + 4)]
 
 
-def drawN(rows, current_x, current_y, text_color):
+def drawN(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 1][current_x] = text_color
-    rows[current_y + 2][current_x] = text_color
-    rows[current_y + 3][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y + 1][current_x + 1] = text_color
-    # third column
-    rows[current_y + 2][current_x + 2] = text_color
-    # fourth column
-    rows[current_y][current_x + 3] = text_color
-    rows[current_y + 1][current_x + 3] = text_color
-    rows[current_y + 2][current_x + 3] = text_color
-    rows[current_y + 3][current_x + 3] = text_color
-    rows[current_y + 4][current_x + 3] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 1), (current_x, current_y + 2),
+            (current_x, current_y + 3), (current_x, current_y + 4), (current_x + 1, current_y + 1),
+            (current_x + 2, current_y + 2), (current_x + 3, current_y), (current_x + 3, current_y + 1),
+            (current_x + 3, current_y + 2), (current_x + 3, current_y + 3), (current_x + 3, current_y + 4)]
 
 
-def drawO(rows, current_x, current_y, text_color):
+def drawO(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 1][current_x] = text_color
-    rows[current_y + 2][current_x] = text_color
-    rows[current_y + 3][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y][current_x + 1] = text_color
-    rows[current_y + 4][current_x + 1] = text_color
-    # third column
-    rows[current_y][current_x + 2] = text_color
-    rows[current_y + 1][current_x + 2] = text_color
-    rows[current_y + 2][current_x + 2] = text_color
-    rows[current_y + 3][current_x + 2] = text_color
-    rows[current_y + 4][current_x + 2] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 1), (current_x, current_y + 2),
+            (current_x, current_y + 3), (current_x, current_y + 4), (current_x + 1, current_y),
+            (current_x + 1, current_y + 4), (current_x + 2, current_y), (current_x + 2, current_y + 1),
+            (current_x + 2, current_y + 2), (current_x + 2, current_y + 3), (current_x + 2, current_y + 4)]
 
 
-def drawP(rows, current_x, current_y, text_color):
+def drawP(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 1][current_x] = text_color
-    rows[current_y + 2][current_x] = text_color
-    rows[current_y + 3][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y][current_x + 1] = text_color
-    rows[current_y + 2][current_x + 1] = text_color
-    # third column
-    rows[current_y][current_x + 2] = text_color
-    rows[current_y + 1][current_x + 2] = text_color
-    rows[current_y + 2][current_x + 2] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 1), (current_x, current_y + 2),
+            (current_x, current_y + 3), (current_x, current_y + 4), (current_x + 1, current_y),
+            (current_x + 1, current_y + 2), (current_x + 2, current_y), (current_x + 2, current_y + 1),
+            (current_x + 2, current_y + 2)]
 
 
-def drawQ(rows, current_x, current_y, text_color):
+def drawQ(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 1][current_x] = text_color
-    rows[current_y + 2][current_x] = text_color
-    rows[current_y + 3][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y][current_x + 1] = text_color
-    rows[current_y + 4][current_x + 1] = text_color
-    # third column
-    rows[current_y][current_x + 2] = text_color
-    rows[current_y + 1][current_x + 2] = text_color
-    rows[current_y + 2][current_x + 2] = text_color
-    rows[current_y + 3][current_x + 2] = text_color
-    rows[current_y + 4][current_x + 2] = text_color
-    # fourth column
-    rows[current_y + 4][current_x + 3] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 1), (current_x, current_y + 2),
+            (current_x, current_y + 3), (current_x, current_y + 4), (current_x + 1, current_y),
+            (current_x + 1, current_y + 4), (current_x + 2, current_y), (current_x + 2, current_y + 1),
+            (current_x + 2, current_y + 2), (current_x + 2, current_y + 3), (current_x + 2, current_y + 4),
+            (current_x + 3, current_y + 4)]
 
 
-def drawR(rows, current_x, current_y, text_color):
+def drawR(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 1][current_x] = text_color
-    rows[current_y + 2][current_x] = text_color
-    rows[current_y + 3][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y][current_x + 1] = text_color
-    rows[current_y + 2][current_x + 1] = text_color
-    # third column
-    rows[current_y][current_x + 2] = text_color
-    rows[current_y + 1][current_x + 2] = text_color
-    rows[current_y + 3][current_x + 2] = text_color
-    rows[current_y + 4][current_x + 2] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 1), (current_x, current_y + 2),
+            (current_x, current_y + 3), (current_x, current_y + 4), (current_x + 1, current_y),
+            (current_x + 1, current_y + 2), (current_x + 2, current_y), (current_x + 2, current_y + 1),
+            (current_x + 2, current_y + 3), (current_x + 2, current_y + 4)]
 
 
-def drawS(rows, current_x, current_y, text_color):
+def drawS(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 1][current_x] = text_color
-    rows[current_y + 2][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y][current_x + 1] = text_color
-    rows[current_y + 2][current_x + 1] = text_color
-    rows[current_y + 4][current_x + 1] = text_color
-    # third column
-    rows[current_y][current_x + 2] = text_color
-    rows[current_y + 2][current_x + 2] = text_color
-    rows[current_y + 3][current_x + 2] = text_color
-    rows[current_y + 4][current_x + 2] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 1), (current_x, current_y + 2),
+            (current_x, current_y + 4), (current_x + 1, current_y), (current_x + 1, current_y + 2),
+            (current_x + 1, current_y + 4), (current_x + 2, current_y), (current_x + 2, current_y + 2),
+            (current_x + 2, current_y + 3), (current_x + 2, current_y + 4)]
 
 
-def drawT(rows, current_x, current_y, text_color):
+def drawT(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    # second column
-    rows[current_y][current_x + 1] = text_color
-    rows[current_y + 1][current_x + 1] = text_color
-    rows[current_y + 2][current_x + 1] = text_color
-    rows[current_y + 3][current_x + 1] = text_color
-    rows[current_y + 4][current_x + 1] = text_color
-    # third column
-    rows[current_y][current_x + 2] = text_color
-    return altered_rows
+    return [(current_x, current_y), (current_x + 1, current_y), (current_x + 1, current_y + 1),
+            (current_x + 1, current_y + 2), (current_x + 1, current_y + 3), (current_x + 1, current_y + 4),
+            (current_x + 2, current_y)]
 
 
-def drawU(rows, current_x, current_y, text_color):
+def drawU(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 1][current_x] = text_color
-    rows[current_y + 2][current_x] = text_color
-    rows[current_y + 3][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y + 4][current_x + 1] = text_color
-    # third column
-    rows[current_y][current_x + 2] = text_color
-    rows[current_y + 1][current_x + 2] = text_color
-    rows[current_y + 2][current_x + 2] = text_color
-    rows[current_y + 3][current_x + 2] = text_color
-    rows[current_y + 4][current_x + 2] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 1), (current_x, current_y + 2),
+            (current_x, current_y + 3), (current_x, current_y + 4), (current_x + 1, current_y + 4),
+            (current_x + 2, current_y), (current_x + 2, current_y + 1), (current_x + 2, current_y + 2),
+            (current_x + 2, current_y + 3), (current_x + 2, current_y + 4)]
 
 
-def drawV(rows, current_x, current_y, text_color):
+def drawV(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 1][current_x] = text_color
-    rows[current_y + 2][current_x] = text_color
-    rows[current_y + 3][current_x] = text_color
-    # second column
-    rows[current_y + 4][current_x + 1] = text_color
-    # third column
-    rows[current_y][current_x + 2] = text_color
-    rows[current_y + 1][current_x + 2] = text_color
-    rows[current_y + 2][current_x + 2] = text_color
-    rows[current_y + 3][current_x + 2] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 1), (current_x, current_y + 2),
+            (current_x, current_y + 3), (current_x + 1, current_y + 4), (current_x + 2, current_y),
+            (current_x + 2, current_y + 1), (current_x + 2, current_y + 2), (current_x + 2, current_y + 3)]
 
 
-def drawW(rows, current_x, current_y, text_color):
+def drawW(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 1][current_x] = text_color
-    rows[current_y + 2][current_x] = text_color
-    rows[current_y + 3][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y + 4][current_x + 1] = text_color
-    # third column
-    rows[current_y + 3][current_x + 2] = text_color
-    # fourth column
-    rows[current_y + 4][current_x + 3] = text_color
-    # fifth column
-    rows[current_y][current_x + 4] = text_color
-    rows[current_y + 1][current_x + 4] = text_color
-    rows[current_y + 2][current_x + 4] = text_color
-    rows[current_y + 3][current_x + 4] = text_color
-    rows[current_y + 4][current_x + 4] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 1), (current_x, current_y + 2),
+            (current_x, current_y + 3), (current_x, current_y + 4), (current_x + 1, current_y + 4),
+            (current_x + 2, current_y + 3), (current_x + 3, current_y + 4), (current_x + 4, current_y),
+            (current_x + 4, current_y + 1), (current_x + 4, current_y + 2), (current_x + 4, current_y + 3),
+            (current_x + 4, current_y + 4)]
 
 
-def drawX(rows, current_x, current_y, text_color):
+def drawX(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y + 1][current_x + 1] = text_color
-    rows[current_y + 3][current_x + 1] = text_color
-    # third column
-    rows[current_y + 2][current_x + 2] = text_color
-    # fourth column
-    rows[current_y + 1][current_x + 3] = text_color
-    rows[current_y + 3][current_x + 3] = text_color
-    # fifth column
-    rows[current_y][current_x + 4] = text_color
-    rows[current_y + 4][current_x + 4] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 4), (current_x + 1, current_y + 1),
+            (current_x + 1, current_y + 3), (current_x + 2, current_y + 2), (current_x + 3, current_y + 1),
+            (current_x + 3, current_y + 3), (current_x + 4, current_y), (current_x + 4, current_y + 4)]
 
 
-def drawY(rows, current_x, current_y, text_color):
+def drawY(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 1][current_x] = text_color
-    rows[current_y + 2][current_x] = text_color
-    # second column
-    rows[current_y + 2][current_x + 1] = text_color
-    rows[current_y + 3][current_x + 1] = text_color
-    rows[current_y + 4][current_x + 1] = text_color
-    # third column
-    rows[current_y][current_x + 2] = text_color
-    rows[current_y + 1][current_x + 2] = text_color
-    rows[current_y + 2][current_x + 2] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 1), (current_x, current_y + 2),
+            (current_x + 1, current_y + 2), (current_x + 1, current_y + 3), (current_x + 1, current_y + 4),
+            (current_x + 2, current_y), (current_x + 2, current_y + 1), (current_x + 2, current_y + 2)]
 
 
-def drawZ(rows, current_x, current_y, text_color):
+def drawZ(current_x, current_y):
     """See documentation for drawA()"""
-    altered_rows = rows
-    # first column
-    rows[current_y][current_x] = text_color
-    rows[current_y + 1][current_x] = text_color
-    rows[current_y + 4][current_x] = text_color
-    # second column
-    rows[current_y][current_x + 1] = text_color
-    rows[current_y + 2][current_x + 1] = text_color
-    rows[current_y + 4][current_x + 1] = text_color
-    # third column
-    rows[current_y][current_x + 2] = text_color
-    rows[current_y + 3][current_x + 2] = text_color
-    rows[current_y + 4][current_x + 2] = text_color
-
-    return altered_rows
+    return [(current_x, current_y), (current_x, current_y + 1), (current_x, current_y + 4),
+            (current_x + 1, current_y), (current_x + 1, current_y + 2), (current_x + 1, current_y + 4),
+            (current_x + 2, current_y), (current_x + 2, current_y + 3), (current_x + 2, current_y + 4)]

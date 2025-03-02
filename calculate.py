@@ -17,7 +17,7 @@ def widthOfCharacter(character):
             return 3
         case "j" | "n":
             return 4
-        case "m" | "w" | "x" | "#":
+        case "m" | "w" | "x" | "#" | "q":
             return 5
         case "!" | "'":
             return 1
@@ -57,6 +57,9 @@ def makeLine(text, width):
                 if pieces_left_in_line < 0:
                     word_to_move = single_line[-1]
                     single_line.remove(word_to_move)
+                    temp = [word_to_move]
+                    temp.extend(words)
+                    words = temp
                     words.append(word_to_move)
                     break
         else:
@@ -128,4 +131,3 @@ def centerText(text, width):
     print("centerText function says:")
     print(f"{pieces_before} | {text} = {width_of_text} | {pieces_before} = {width}")
     return pieces_before
-

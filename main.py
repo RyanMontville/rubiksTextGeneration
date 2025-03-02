@@ -10,40 +10,23 @@ import calculate
 colors = [(255, 0, 0), (255, 165, 0), (255, 255, 0), (50, 205, 50), (0, 0, 255), (255, 255, 255)]
 
 
-def generate_grid(background_color, width, height):
-    """
-    Generate a matrix array for the mosaic
-    and fills every pixel the background color
-    :param background_color: The background color of the mosaic
-    :param width: How wide will the mosaic be. (Number of cubes * 3 pieces)
-    :param height: How tall will the mosaic be. (Number of cubes * 3 pieces)
-    """
-    grid = []
-    for y in range(height):
-        row = []
-        for x in range(width):
-            row.append(background_color)
-        grid.append(row)
-
-    return grid
-
-
-def generateImage(pixel_rows, width, height, name_of_image):
+def generateImage(pixels, width, height, name_of_image, background_color, text_color):
     """Generates the image where one pixel is one piece of a cube.
     Then enlarges the image 5 times to make it easier to read.
     Shows and save the image.
-    :param pixel_rows: The matrix array of piece colors
+    :param pixels: The list of pixels coordinates
     :param width: width of image - one pixel = one piece of a cube
     :param height: height of the image - one pixel = one piece of a cube
     :param name_of_image: Name of image to be saved to device
+    :param background_color: the background color of the image
+    :param text_color: the color of the text
     """
     # Create small image
-    img_small = Image.new('RGB', (width, height), "WHITE")
-    for y in range(len(pixel_rows)):
-        row = pixel_rows[y]
-        for x in range(len(row)):
-            color_rgb = colors[row[x]]
-            img_small.putpixel((x, y), color_rgb)
+    background = colors[background_color]
+    text = colors[text_color]
+    img_small = Image.new('RGB', (width, height), background)
+    for pixel in pixels:
+        img_small.putpixel((pixel[0], pixel[1]), text)
     # Enlarge image
     image = img_small
     original_width, original_height = image.size
@@ -114,100 +97,99 @@ def getIntFromUser(prompt, is_color, min_num, max_num):
             print("Please enter a number")
 
 
-def drawCharacter(character, x_cord, y_cord, mosaic_grid, text_color):
+def drawCharacter(character_to_draw, x_cord, y_cord):
     """Adds the letter to the mosaic array and moves the x coordinate to the proper spot for the next character.
-    :param character: the current character to add to the mosaic
+    :param character_to_draw: the current character to add to the mosaic
     :param x_cord: the x coordinate of the top left corner of the character
     :param y_cord: the y coordinate of the top left corner of the character
-    :param mosaic_grid: the mosaic grid to add the character pieces to
-    :param text_color: the color of the text
-    :returns (updated_grid, x_cord)"""
-    match character:
+    :returns (pixels, x_cord)"""
+    pixels = []
+    match character_to_draw:
         case "a":
-            updated_grid = letters.drawA(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawA(x_cord, y_cord))
         case "b":
-            updated_grid = letters.drawB(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawB(x_cord, y_cord))
         case "c":
-            updated_grid = letters.drawC(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawC(x_cord, y_cord))
         case "d":
-            updated_grid = letters.drawD(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawD(x_cord, y_cord))
         case "e":
-            updated_grid = letters.drawE(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawE(x_cord, y_cord))
         case "f":
-            updated_grid = letters.drawF(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawF(x_cord, y_cord))
         case "g":
-            updated_grid = letters.drawG(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawG(x_cord, y_cord))
         case "h":
-            updated_grid = letters.drawH(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawH(x_cord, y_cord))
         case "i":
-            updated_grid = letters.drawI(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawI(x_cord, y_cord))
         case "j":
-            updated_grid = letters.drawJ(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawJ(x_cord, y_cord))
         case "k":
-            updated_grid = letters.drawK(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawK(x_cord, y_cord))
         case "l":
-            updated_grid = letters.drawL(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawL(x_cord, y_cord))
         case "m":
-            updated_grid = letters.drawM(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawM(x_cord, y_cord))
         case "n":
-            updated_grid = letters.drawN(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawN(x_cord, y_cord))
         case "o":
-            updated_grid = letters.drawO(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawO(x_cord, y_cord))
         case "p":
-            updated_grid = letters.drawP(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawP(x_cord, y_cord))
         case "q":
-            updated_grid = letters.drawQ(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawQ(x_cord, y_cord))
         case "r":
-            updated_grid = letters.drawR(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawR(x_cord, y_cord))
         case "s":
-            updated_grid = letters.drawS(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawS(x_cord, y_cord))
         case "t":
-            updated_grid = letters.drawT(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawT(x_cord, y_cord))
         case "u":
-            updated_grid = letters.drawU(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawU(x_cord, y_cord))
         case "v":
-            updated_grid = letters.drawV(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawV(x_cord, y_cord))
         case "w":
-            updated_grid = letters.drawW(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawW(x_cord, y_cord))
         case "x":
-            updated_grid = letters.drawX(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawX(x_cord, y_cord))
         case "y":
-            updated_grid = letters.drawY(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawY(x_cord, y_cord))
         case "z":
-            updated_grid = letters.drawZ(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(letters.drawZ(x_cord, y_cord))
         case "0":
-            updated_grid = otherCharacters.draw0(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(otherCharacters.draw0(x_cord, y_cord))
         case "1":
-            updated_grid = otherCharacters.draw1(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(otherCharacters.draw1(x_cord, y_cord))
         case "2":
-            updated_grid = otherCharacters.draw2(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(otherCharacters.draw2(x_cord, y_cord))
         case "3":
-            updated_grid = otherCharacters.draw3(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(otherCharacters.draw3(x_cord, y_cord))
         case "4":
-            updated_grid = otherCharacters.draw4(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(otherCharacters.draw4(x_cord, y_cord))
         case "5":
-            updated_grid = otherCharacters.draw5(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(otherCharacters.draw5(x_cord, y_cord))
         case "6":
-            updated_grid = otherCharacters.draw6(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(otherCharacters.draw6(x_cord, y_cord))
         case "7":
-            updated_grid = otherCharacters.draw7(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(otherCharacters.draw7(x_cord, y_cord))
         case "8":
-            updated_grid = otherCharacters.draw8(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(otherCharacters.draw8(x_cord, y_cord))
         case "9":
-            updated_grid = otherCharacters.draw9(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(otherCharacters.draw9(x_cord, y_cord))
         case "?":
-            updated_grid = otherCharacters.drawQuestion(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(otherCharacters.drawQuestion(x_cord, y_cord))
         case "'":
-            updated_grid = otherCharacters.drawApostrophe(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(otherCharacters.drawApostrophe(x_cord, y_cord))
         case "!":
-            updated_grid = otherCharacters.drawExclamation(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(otherCharacters.drawExclamation(x_cord, y_cord))
         case "#":
-            updated_grid = otherCharacters.drawPound(mosaic_grid, x_cord, y_cord, text_color)
+            pixels.extend(otherCharacters.drawPound(x_cord, y_cord))
         case _:
-            updated_grid = mosaic_grid
+            pass
 
     x_cord += calculate.widthOfCharacter(character)
-    return updated_grid, x_cord
+    return pixels, x_cord
 
 
 # First prompt for text
@@ -255,8 +237,6 @@ image_name = input("Enter name of image (image will be overwritten if already ex
 # Create lines of text with user's dimensions
 final_lines = calculate.make_lines_list(text_for_mosaic, width_in_pieces)
 
-# Generate matrix array of pieces all set to background color
-rows = generate_grid(mosaic_background_color, width_in_pieces, height_in_pieces)
 # The line_spacing list stores the text for the line, the height of the line,
 # and how many pieces are needed before the text to center the text on the mosaic
 line_spacing = []
@@ -265,17 +245,19 @@ for line in final_lines:
     line_spacing.append((line[0], line[1], pieces_before))
 for line in line_spacing:
     print(line)
-
+pixels_to_place = []
 y_cord = 1
+if line_spacing[0][1] == 6:
+    y_cord = 2
 for line in line_spacing:
     x_cord = line[2]
     for character in line[0]:
-        result = drawCharacter(character, x_cord, y_cord, rows, mosaic_text_color)
-        rows = result[0]
+        result = drawCharacter(character, x_cord, y_cord)
         x_cord = result[1]
+        pixels_to_place.extend(result[0])
         if x_cord < width_in_pieces:
             x_cord += 1
     y_cord += line[1] + 1
 
 # Generate the image
-generateImage(rows, width_in_pieces, height_in_pieces, image_name)
+generateImage(pixels_to_place, width_in_pieces, height_in_pieces, image_name, mosaic_background_color, mosaic_text_color)
