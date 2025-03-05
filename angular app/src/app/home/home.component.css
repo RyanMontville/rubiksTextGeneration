@@ -1,0 +1,40 @@
+.mosaicTextBar {
+    width: 80%;
+}
+
+.dimensionInput {
+    width: 50px;
+}
+
+.red {
+    box-shadow: inset 0 0 0 2px red;
+    color: white;
+    background-color: red;
+}
+
+.orange {
+    box-shadow: inset 0 0 0 2px orange;
+    color: white;
+    background-color: orange;
+}
+.yellow {
+    box-shadow: inset 0 0 0 2px yellow;
+    color: black;
+    background-color: yellow;
+}
+
+.green {
+    box-shadow: inset 0 0 0 2px green;
+    color: white;
+    background-color: green;
+}
+.blue {
+    box-shadow: inset 0 0 0 2px blue;
+    color: white;
+    background-color: blue;
+}
+.white {
+    box-shadow: inset 0 0 0 2px black;
+    color: black;
+    background-color: white;
+}
