@@ -12,40 +12,65 @@
     @if (showStepTwo) {
     <h2>Step 2: Choose the dimensions of your mosaic</h2>
     @if (showStepTwoInput) {
-        <div id="dimensionGroup">
-            <label for="width">Width in cubes:</label>
-            <input [(ngModel)]="mosaicWidth" type="number" id="width" name="width" min="0" class="dimensionInput" />
-            <label for="height">height in cubes:</label>
-            <input [(ngModel)]="mosaicHeight" type="number" id="height" name="height" min="0" class="dimensionInput" />
-            <button (click)="onSubmit(2)">Submit</button>
-        </div>
+        @if (errorMesage.length > 0) {
+            <span class="errorMesage"><span class="material-symbols-outlined">
+                error
+                </span> {{errorMesage}} <span class="material-symbols-outlined">
+                    error
+                    </span></span>
+        }
+    <div id="dimensionGroup">
+        <label for="width">Width in cubes:</label>
+        <input [(ngModel)]="mosaicWidth" type="number" id="width" name="width" [min]="minWidth" class="dimensionInput" />
+        <label for="height">height in cubes:</label>
+        <input [(ngModel)]="mosaicHeight" type="number" id="height" name="height" [min]="minHeight" class="dimensionInput" />
+        <button (click)="onSubmit(2)">Submit</button>
+    </div>
     }
     @if (!showStepTwoInput) {
-        <p>[Alert if input is less than min required]</p>
-        <p>Width: {{mosaicWidth}} height: {{mosaicHeight}} = Total cubes: {{mosaicHeight * mosaicWidth}}</p>
-        (program cacluates new dimensions and total cubes needed, prints here)
+    <p>Width: {{mosaicWidth}} height: {{mosaicHeight}} Total cubes needed: {{mosaicHeight * mosaicWidth}}</p>
+    (program cacluates new dimensions and total cubes needed, prints here)
     }
     }
     @if (showStepThree) {
-        <h2>Step 3: Choose the mosaic background color</h2>
-        <div class="colorSelection">
-            <button class="red">RED</button>
-            <button class="orange">ORANGE</button>
-            <button class="yellow">YELLOW</button>
-            <button class="green">GREEN</button>
-            <button class="blue">BLUE</button>
-            <button class="white">WHITE</button>
-        </div>
+    <h2>Step 3: Choose the mosaic background color</h2>
+    @if(showStepThreeSelection) {
+    <div class="colorSelection">
+        <button class="red" (click)="setColor(true, 0)">RED</button>
+        <button class="orange" (click)="setColor(true, 1)">ORANGE</button>
+        <button class="yellow" (click)="setColor(true, 2)">YELLOW</button>
+        <button class="green" (click)="setColor(true, 3)">GREEN</button>
+        <button class="blue" (click)="setColor(true, 4)">BLUE</button>
+        <button class="white" (click)="setColor(true, 5)">WHITE</button>
+    </div>
+    }
+    @if(!showStepThreeSelection) {
+    <p>Here is an example of the different colors on a {{convertRGBToName(mosaicBackgroundColor)}} backgorund. Note: your cube's colors may varry.</p>
+    <img [src]="getTextSampleImage()" [alt]="convertRGBToName(mosaicBackgroundColor)" class="textExample" />
+    }
     }
     @if (showStepFour) {
-        <h2>Step 4: Choose the text color</h2>
+    <h2>Step 4: Choose the text color</h2>
+    @if(showStepFourSelection) {
+        @if (errorMesage.length > 0) {
+            <span class="errorMesage"><span class="material-symbols-outlined">
+                error
+                </span> {{errorMesage}} <span class="material-symbols-outlined">
+                    error
+                    </span></span>
+        }
         <div class="colorSelection">
-            <button class="red">RED</button>
-            <button class="orange">ORANGE</button>
-            <button class="yellow">YELLOW</button>
-            <button class="green">GREEN</button>
-            <button class="blue">BLUE</button>
-            <button class="white">WHITE</button>
+            <button class="red" (click)="setColor(false, 0)">RED</button>
+            <button class="orange" (click)="setColor(false, 1)">ORANGE</button>
+            <button class="yellow" (click)="setColor(false, 2)">YELLOW</button>
+            <button class="green" (click)="setColor(false, 3)">GREEN</button>
+            <button class="blue" (click)="setColor(false, 4)">BLUE</button>
+            <button class="white" (click)="setColor(false, 5)">WHITE</button>
         </div>
+    }
+    @if (!showStepFourSelection) {
+        <p>{{convertRGBToName(mosaicTextColor)}}</p>
+        <p>(Program will generate image and display it here with an option to download it)</p>
+    }
     }
 </main>
