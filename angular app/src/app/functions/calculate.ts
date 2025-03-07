@@ -68,7 +68,12 @@ export class Calculate {
         let words: string[] = mosaicText.split(" ");
         let piecesLeftInLine: number = widthOfMosaic;
         let singleLine: string[] = [];
+        let loopCount: number = 0
         while (piecesLeftInLine > 0 && words.length > 0) {
+            loopCount += 1;
+            if (loopCount > 3) {
+                break;
+            }
             let wordLength: number = this.calculateWidthOfWord(words[0]);
             if (singleLine.length > 1) {
                 if (wordLength <= piecesLeftInLine - 2) {
@@ -134,6 +139,27 @@ export class Calculate {
     }
 
     centertext(lineText: string, lineWidth: number) {
-        
+        let widthOfText: number = 0;
+        let words: string[] = lineText.split(" ");
+        let numberOfSpaces: number = words.length - 1;
+        words.forEach((word) => {
+            widthOfText += this.calculateWidthOfWord(word);
+        });
+        widthOfText += (numberOfSpaces * 2);
+        let piecesBeforeText = Math.floor((lineWidth - widthOfText) / 2);
+        if (piecesBeforeText < 0) {
+            return 0;
+        } else {
+            return piecesBeforeText;
+        }
+    }
+
+    caculateLineSpacings(lines: [string, number][], mosaicWidth: number) {
+        let lineSpacings: [string, number, number][] = [];
+        lines.forEach((line) => {
+            let piecesBeforeText = this.centertext(line[0], mosaicWidth);
+            lineSpacings.push([line[0], piecesBeforeText, line[1]]);
+        });
+        return lineSpacings;
     }
 }

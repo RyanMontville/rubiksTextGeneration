@@ -28,19 +28,22 @@ export class HomeComponent {
   mosaicBackgroundColor: number = 0;
   mosaicTextColor: number = 0;
   errorMesage: string = "";
-  mosaicLines: [string, number][] = [];
+  mosaicLines: [string, number][] = []; //[Line Text, Height of Line]
+  mosaicLineWithSpacing: [string, number, number][] = []; //[Line Text, Number of pieces before text to center it, height of Line]
+  loading: boolean = false;
 
   calulator: Calculate = new Calculate();
 
   onSubmit(step: number) {
     this.errorMesage = "";
+    this.loading = true;
     switch (step) {
       case 1: {
         this.mosaicText = this.mosaicText.toLowerCase();
-        let calLines:[[string, number][], number, number] = this.calulator.calculateMinimumSize(this.mosaicText);
-        this.mosaicLines = calLines[0];
-        this.minWidth = calLines[1];
-        this.minHeight = calLines[2];
+        let calcLines: [[string, number][], number, number] = this.calulator.calculateMinimumSize(this.mosaicText);
+        this.mosaicLines = calcLines[0];
+        this.minWidth = calcLines[1];
+        this.minHeight = calcLines[2];
         this.showStepOneInput = false;
         this.showStepTwo = true;
         this.mosaicWidth = this.minWidth;
@@ -60,10 +63,12 @@ export class HomeComponent {
         if (goodDimensions) {
           this.showStepTwoInput = false;
           this.showStepThree = true;
+          this.mosaicLineWithSpacing = this.calulator.caculateLineSpacings(this.mosaicLines, (this.mosaicWidth * 3));
         }
         break;
       }
     }
+    this.loading = false;
   }
 
   setColor(background: boolean, color: number) {

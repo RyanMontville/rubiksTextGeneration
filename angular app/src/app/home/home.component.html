@@ -1,4 +1,7 @@
 <main>
+    @if(loading) {
+        <h2>LOADING...</h2>
+    }
     <h2>Step 1: Enter your text for the mosaic</h2>
     @if (showStepOneInput) {
     <input [(ngModel)]="mosaicText" type="text" placeholder="Mosaic Text" class="mosaicTextBar"
@@ -70,7 +73,9 @@
     }
     @if (!showStepFourSelection) {
         <p>{{convertRGBToName(mosaicTextColor)}}</p>
-        <p>(Program will generate image and display it here with an option to download it)</p>
+        @for (line of mosaicLineWithSpacing; track line) {
+            <p>{{line}}</p>
+        }
     }
     }
 </main>
