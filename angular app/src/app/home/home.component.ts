@@ -2,11 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Calculate } from '../functions/calculate';
+import { Letters } from '../functions/letters';
+import { MosaicCanvasComponent } from "../mosaic-canvas/mosaic-canvas.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, MosaicCanvasComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -14,11 +16,12 @@ export class HomeComponent {
   COLORS: [number, number, number][] = [[255, 0, 0], [255, 165, 0], [255, 255, 0], [50, 205, 50], [0, 0, 255], [255, 255, 255]]
 
   mosaicText: string = "";
+  showStepOne: boolean = true;
   showStepOneInput: boolean = true;
   showStepTwo: boolean = false;
   showStepTwoInput: boolean = true;
-  minWidth: number = 2;
-  minHeight: number = 2;
+  minWidth: number = 0;
+  minHeight: number = 0;
   mosaicWidth: number = 0;
   mosaicHeight: number = 0;
   showStepThree: boolean = false;
@@ -31,8 +34,10 @@ export class HomeComponent {
   mosaicLines: [string, number][] = []; //[Line Text, Height of Line]
   mosaicLineWithSpacing: [string, number, number][] = []; //[Line Text, Number of pieces before text to center it, height of Line]
   loading: boolean = false;
+  showImage: boolean = false;
 
   calulator: Calculate = new Calculate();
+  letters: Letters = new Letters();
 
   onSubmit(step: number) {
     this.errorMesage = "";
@@ -66,6 +71,28 @@ export class HomeComponent {
           this.mosaicLineWithSpacing = this.calulator.caculateLineSpacings(this.mosaicLines, (this.mosaicWidth * 3));
         }
         break;
+      }
+      case 3: {
+        this.mosaicText = "";
+        this.showStepOne = true;
+        this.showStepOneInput = true;
+        this.showStepTwo = false;
+        this.showStepTwoInput = true;
+        this.minWidth = 0;
+        this.minHeight = 0;
+        this.mosaicWidth = 0;
+        this.mosaicHeight = 0;
+        this.showStepThree = false;
+        this.showStepThreeSelection = true;
+        this.showStepFour = false;
+        this.showStepFourSelection = true;
+        this.mosaicBackgroundColor = 0;
+        this.mosaicTextColor = 0;
+        this.errorMesage = "";
+        this.mosaicLines = [];
+        this.mosaicLineWithSpacing = [];
+        this.loading = false;
+        this.showImage =false;
       }
     }
     this.loading = false;
@@ -135,5 +162,32 @@ export class HomeComponent {
         return "https://raw.githubusercontent.com/RyanMontville/rubiksTextGeneration/refs/heads/main/images/white-combos.png"
       }
     }
+  }
+
+  generateImage() {
+    let pixelsToPlace: [number, number][] = [];
+    let currentY: number = 1;
+    if (this.mosaicLineWithSpacing[0][2] === 6) {
+      currentY = 2;
+    }
+    this.mosaicLineWithSpacing.forEach((line) => {
+      //[Line Text, Number of pieces before text to center it, height of Line]
+      let currentX: number = line[1];
+      let characters: string[] = line[0].split("");
+      characters.forEach((character) => {
+        pixelsToPlace.push(...this.letters.drawCharacter(character, currentX, currentY));
+        currentX += this.calulator.calculateWidthOfCharacter(character);
+        if(currentX < this.mosaicWidth * 3) {
+          currentX += 1;
+        }
+      });
+      currentY += line[2] + 1;
+    });
+    this.showStepOne = false;
+    this.showStepTwo = false;
+    this.showStepThree = false;
+    this.showStepFour = false;
+    this.showImage = true;
+    return pixelsToPlace;
   }
 }

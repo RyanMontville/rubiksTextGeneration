@@ -1,43 +1,47 @@
 <main>
     @if(loading) {
-        <h2>LOADING...</h2>
+    <h2>LOADING...</h2>
     }
-    <h2>Step 1: Enter your text for the mosaic</h2>
-    @if (showStepOneInput) {
-    <input [(ngModel)]="mosaicText" type="text" placeholder="Mosaic Text" class="mosaicTextBar"
-        (keydown.enter)="onSubmit(1)" id="createNewListBar" />
-    <button (click)="onSubmit(1)">Submit</button>
-    }
-    @if (!showStepOneInput) {
-    <p>{{mosaicText}}</p>
-    <p>Minimum width: {{minWidth}} cubes, Minimum height: {{minHeight}} cubes, Total cubes needed: {{minWidth * minHeight}}</p>
+    @if(showStepOne){
+        @if (showStepOneInput) {
+            <h2>Step 1: Enter your text for the mosaic</h2>
+        <input [(ngModel)]="mosaicText" type="text" placeholder="Mosaic Text" class="mosaicTextBar"
+            (keydown.enter)="onSubmit(1)" id="createNewListBar" />
+        <button (click)="onSubmit(1)">Submit</button>
+        }
+        @if (!showStepOneInput) {
+            <h2>Step 1: Enter your text for the mosaic: {{mosaicText}}</h2>
+        <p>Minimum width: {{minWidth}} cubes, Minimum height: {{minHeight}} cubes, Minimum cubes needed: {{minWidth *
+            minHeight}}</p>
+        }
     }
     @if (showStepTwo) {
     <h2>Step 2: Choose the dimensions of your mosaic</h2>
     @if (showStepTwoInput) {
-        @if (errorMesage.length > 0) {
-            <span class="errorMesage"><span class="material-symbols-outlined">
-                error
-                </span> {{errorMesage}} <span class="material-symbols-outlined">
-                    error
-                    </span></span>
-        }
+    @if (errorMesage.length > 0) {
+    <span class="errorMesage"><span class="material-symbols-outlined">
+            error
+        </span> {{errorMesage}} <span class="material-symbols-outlined">
+            error
+        </span></span>
+    }
     <div id="dimensionGroup">
         <label for="width">Width in cubes:</label>
-        <input [(ngModel)]="mosaicWidth" type="number" id="width" name="width" [min]="minWidth" class="dimensionInput" />
+        <input [(ngModel)]="mosaicWidth" type="number" id="width" name="width" [min]="minWidth"
+            class="dimensionInput" />
         <label for="height">height in cubes:</label>
-        <input [(ngModel)]="mosaicHeight" type="number" id="height" name="height" [min]="minHeight" class="dimensionInput" />
+        <input [(ngModel)]="mosaicHeight" type="number" id="height" name="height" [min]="minHeight"
+            class="dimensionInput" />
         <button (click)="onSubmit(2)">Submit</button>
     </div>
     }
     @if (!showStepTwoInput) {
     <p>Width: {{mosaicWidth}} height: {{mosaicHeight}} Total cubes needed: {{mosaicHeight * mosaicWidth}}</p>
-    (program cacluates new dimensions and total cubes needed, prints here)
     }
     }
     @if (showStepThree) {
-    <h2>Step 3: Choose the mosaic background color</h2>
     @if(showStepThreeSelection) {
+    <h2>Step 3: Choose the mosaic background color</h2>
     <div class="colorSelection">
         <button class="red" (click)="setColor(true, 0)">RED</button>
         <button class="orange" (click)="setColor(true, 1)">ORANGE</button>
@@ -48,34 +52,49 @@
     </div>
     }
     @if(!showStepThreeSelection) {
-    <p>Here is an example of the different colors on a {{convertRGBToName(mosaicBackgroundColor)}} backgorund. Note: your cube's colors may varry.</p>
+    <h2>Step 3: Choose the mosaic background color: {{convertRGBToName(mosaicBackgroundColor).toUpperCase()}}</h2>
+    <p>Here is an example of the different colors on a {{convertRGBToName(mosaicBackgroundColor)}} backgorund. Note:
+        your cube's colors may varry.</p>
     <img [src]="getTextSampleImage()" [alt]="convertRGBToName(mosaicBackgroundColor)" class="textExample" />
     }
     }
     @if (showStepFour) {
-    <h2>Step 4: Choose the text color</h2>
     @if(showStepFourSelection) {
-        @if (errorMesage.length > 0) {
-            <span class="errorMesage"><span class="material-symbols-outlined">
-                error
-                </span> {{errorMesage}} <span class="material-symbols-outlined">
-                    error
-                    </span></span>
-        }
-        <div class="colorSelection">
-            <button class="red" (click)="setColor(false, 0)">RED</button>
-            <button class="orange" (click)="setColor(false, 1)">ORANGE</button>
-            <button class="yellow" (click)="setColor(false, 2)">YELLOW</button>
-            <button class="green" (click)="setColor(false, 3)">GREEN</button>
-            <button class="blue" (click)="setColor(false, 4)">BLUE</button>
-            <button class="white" (click)="setColor(false, 5)">WHITE</button>
-        </div>
+    <h2>Step 4: Choose the text color</h2>
+    @if (errorMesage.length > 0) {
+    <span class="errorMesage"><span class="material-symbols-outlined">
+            error
+        </span> {{errorMesage}} <span class="material-symbols-outlined">
+            error
+        </span></span>
+    }
+    <div class="colorSelection">
+        <button class="red" (click)="setColor(false, 0)">RED</button>
+        <button class="orange" (click)="setColor(false, 1)">ORANGE</button>
+        <button class="yellow" (click)="setColor(false, 2)">YELLOW</button>
+        <button class="green" (click)="setColor(false, 3)">GREEN</button>
+        <button class="blue" (click)="setColor(false, 4)">BLUE</button>
+        <button class="white" (click)="setColor(false, 5)">WHITE</button>
+    </div>
     }
     @if (!showStepFourSelection) {
-        <p>{{convertRGBToName(mosaicTextColor)}}</p>
-        @for (line of mosaicLineWithSpacing; track line) {
-            <p>{{line}}</p>
-        }
+    <h2>Step 4: Choose the text color: {{convertRGBToName(mosaicTextColor).toUpperCase()}}</h2>
+    <div id="buttonGroup">
+        <button (click)="generateImage()">Generate Image</button>
+        <button (click)="onSubmit(3)">Start Over</button>
+    </div>
     }
+    }
+    @if (showImage) {
+        <app-mosaic-canvas 
+            [pixels] = "generateImage()" 
+            [imageWidth]="mosaicWidth * 150" 
+            [imageHeight]="mosaicHeight * 150"
+            [textColor]="convertRGBToName(mosaicTextColor)"
+            [backgroundColor]="convertRGBToName(mosaicBackgroundColor)"
+            [text]="mosaicText"/>
+        <div id="buttonGroup">
+            <button (click)="onSubmit(3)">Start Over</button>
+        </div>
     }
 </main>
