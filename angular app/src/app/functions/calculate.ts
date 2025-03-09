@@ -154,6 +154,22 @@ export class Calculate {
         }
     }
 
+    verticallyAlignText(lineSpacings: [string, number][], verticalAlignment: string, mosaicHieght: number): number {
+        let heightOFLines: number = 0;
+        let heightInPieces: number = mosaicHieght * 3;
+        lineSpacings.forEach((line) => {
+            heightOFLines += line[1];
+        });
+        heightOFLines += lineSpacings.length - 1;
+        if (verticalAlignment === 'top') {
+            return 1;
+        } else if (verticalAlignment === 'center') {
+            return Math.floor((heightInPieces - heightOFLines) / 2);
+        } else {
+            return heightInPieces - heightOFLines - 1;
+        }
+    }
+
     caculateLineSpacings(lines: [string, number][], mosaicWidth: number) {
         let lineSpacings: [string, number, number][] = [];
         lines.forEach((line) => {

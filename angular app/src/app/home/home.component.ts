@@ -16,18 +16,12 @@ export class HomeComponent {
   COLORS: [number, number, number][] = [[255, 0, 0], [255, 165, 0], [255, 255, 0], [50, 205, 50], [0, 0, 255], [255, 255, 255]]
 
   mosaicText: string = "";
-  showStepOne: boolean = true;
-  showStepOneInput: boolean = true;
-  showStepTwo: boolean = false;
-  showStepTwoInput: boolean = true;
+  showStep: number = 1;
+  verticalAlignment: string = "top";
   minWidth: number = 0;
   minHeight: number = 0;
   mosaicWidth: number = 0;
   mosaicHeight: number = 0;
-  showStepThree: boolean = false;
-  showStepThreeSelection: boolean = true;
-  showStepFour: boolean = false;
-  showStepFourSelection: boolean = true;
   mosaicBackgroundColor: number = 0;
   mosaicTextColor: number = 0;
   errorMesage: string = "";
@@ -49,8 +43,7 @@ export class HomeComponent {
         this.mosaicLines = calcLines[0];
         this.minWidth = calcLines[1];
         this.minHeight = calcLines[2];
-        this.showStepOneInput = false;
-        this.showStepTwo = true;
+        this.showStep = 2;
         this.mosaicWidth = this.minWidth;
         this.mosaicHeight = this.minHeight;
         break;
@@ -66,26 +59,18 @@ export class HomeComponent {
           goodDimensions = false;
         }
         if (goodDimensions) {
-          this.showStepTwoInput = false;
-          this.showStepThree = true;
+          this.showStep = 4;
           this.mosaicLineWithSpacing = this.calulator.caculateLineSpacings(this.mosaicLines, (this.mosaicWidth * 3));
         }
         break;
       }
       case 3: {
         this.mosaicText = "";
-        this.showStepOne = true;
-        this.showStepOneInput = true;
-        this.showStepTwo = false;
-        this.showStepTwoInput = true;
+        this.showStep = 1;
         this.minWidth = 0;
         this.minHeight = 0;
         this.mosaicWidth = 0;
         this.mosaicHeight = 0;
-        this.showStepThree = false;
-        this.showStepThreeSelection = true;
-        this.showStepFour = false;
-        this.showStepFourSelection = true;
         this.mosaicBackgroundColor = 0;
         this.mosaicTextColor = 0;
         this.errorMesage = "";
@@ -98,19 +83,23 @@ export class HomeComponent {
     this.loading = false;
   }
 
+  setVerticalAlign(alignment: string) {
+    this.verticalAlignment = alignment;
+    this.showStep = 3;
+  }
+
   setColor(background: boolean, color: number) {
     this.errorMesage = "";
     if (background) {
       this.mosaicBackgroundColor = color;
-      this.showStepFour = true;
-      this.showStepThreeSelection = false;
+      this.showStep = 5;
 
     } else {
       if (color === this.mosaicBackgroundColor) {
         this.errorMesage = "Error, text color cannot be the same as background color"
       } else {
         this.mosaicTextColor = color;
-        this.showStepFourSelection = false;
+        this.showStep = 6;
       }
     }
   }
@@ -166,7 +155,7 @@ export class HomeComponent {
 
   generateImage() {
     let pixelsToPlace: [number, number][] = [];
-    let currentY: number = 1;
+    let currentY: number = this.calulator.verticallyAlignText(this.mosaicLines, this.verticalAlignment, this.mosaicHeight);
     if (this.mosaicLineWithSpacing[0][2] === 6) {
       currentY = 2;
     }
@@ -183,16 +172,12 @@ export class HomeComponent {
       });
       currentY += line[2] + 1;
     });
-    this.showStepOne = false;
-    this.showStepTwo = false;
-    this.showStepThree = false;
-    this.showStepFour = false;
+    this.showStep = 0;
     this.showImage = true;
     return pixelsToPlace;
   }
 
   mosaicCanvasReset() {
     this.onSubmit(3);
-    // Your logic here
   }
 }

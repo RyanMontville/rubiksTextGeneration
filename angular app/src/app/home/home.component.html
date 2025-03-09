@@ -2,24 +2,39 @@
     @if(loading) {
     <h2>LOADING...</h2>
     }
-    @if(showStepOne){
-        @if (showStepOneInput) {
-            <h2>Step 1: Enter your text for the mosaic</h2>
-        <div class="inputGroup">
-            <input [(ngModel)]="mosaicText" type="text" placeholder="Mosaic Text" class="mosaicTextBar"
+    @if(showStep > 0){
+    @if (showStep == 1) {
+    <h2>Step 1: Enter your text for the mosaic</h2>
+    <div class="inputGroup">
+        <input [(ngModel)]="mosaicText" type="text" placeholder="Mosaic Text" class="mosaicTextBar"
             (keydown.enter)="onSubmit(1)" id="createNewListBar" />
         <button (click)="onSubmit(1)">Submit</button>
-        </div>
-        }
-        @if (!showStepOneInput) {
-            <h2>Step 1: Enter your text for the mosaic: {{mosaicText}}</h2>
-        <p>Minimum width: {{minWidth}} cubes, Minimum height: {{minHeight}} cubes, Minimum cubes needed: {{minWidth *
-            minHeight}}</p>
-        }
+    </div>
     }
-    @if (showStepTwo) {
-    <h2>Step 2: Choose the dimensions of your mosaic</h2>
-    @if (showStepTwoInput) {
+    @if (showStep !== 1) {
+    <h2>Step 1: Enter your text for the mosaic: {{mosaicText}}</h2>
+    @if (showStep !== 4) {
+        <p>Minimum width: {{minWidth}} cubes, Minimum height: {{minHeight}} cubes, Minimum cubes needed: {{minWidth *
+        minHeight}}</p>
+    }
+    }
+    }
+    @if (showStep > 1) {
+    @if (showStep === 2) {
+    <h2>Step 2: Vertically Align Text</h2>
+    <div class="buttonGroup">
+        <button (click)="setVerticalAlign('top')">Top</button>
+        <button (click)="setVerticalAlign('center')">center</button>
+        <button (click)="setVerticalAlign('bottom')">bottom</button>
+    </div>
+    }
+    @if (showStep !== 2) {
+        <h2>Step 2: Vertically Align Text: {{verticalAlignment}}</h2>
+    }
+    }
+    @if (showStep > 2) {
+    <h2>Step 3: Choose the dimensions of your mosaic</h2>
+    @if (showStep === 3) {
     @if (errorMesage.length > 0) {
     <span class="errorMesage"><span class="material-symbols-outlined">
             error
@@ -27,6 +42,7 @@
             error
         </span></span>
     }
+    <p>Total cubes needed: {{mosaicHeight * mosaicWidth}}</p>
     <div class="inputGroup">
         <label for="width">Width in cubes:</label>
         <input [(ngModel)]="mosaicWidth" type="number" id="width" name="width" [min]="minWidth"
@@ -37,13 +53,13 @@
         <button (click)="onSubmit(2)">Submit</button>
     </div>
     }
-    @if (!showStepTwoInput) {
+    @if (showStep !== 3) {
     <p>Width: {{mosaicWidth}} height: {{mosaicHeight}} Total cubes needed: {{mosaicHeight * mosaicWidth}}</p>
     }
     }
-    @if (showStepThree) {
-    @if(showStepThreeSelection) {
-    <h2>Step 3: Choose the mosaic background color</h2>
+    @if (showStep > 3) {
+    @if(showStep == 4) {
+    <h2>Step 4: Choose the mosaic background color</h2>
     <div class="colorSelection">
         <button class="red" (click)="setColor(true, 0)">RED</button>
         <button class="orange" (click)="setColor(true, 1)">ORANGE</button>
@@ -53,16 +69,16 @@
         <button class="white" (click)="setColor(true, 5)">WHITE</button>
     </div>
     }
-    @if(!showStepThreeSelection) {
-    <h2>Step 3: Choose the mosaic background color: {{convertRGBToName(mosaicBackgroundColor).toUpperCase()}}</h2>
+    @if(showStep !== 4) {
+    <h2>Step 4: Choose the mosaic background color: {{convertRGBToName(mosaicBackgroundColor).toUpperCase()}}</h2>
     <p>Here is an example of the different colors on a {{convertRGBToName(mosaicBackgroundColor)}} backgorund. Note:
         your cube's colors may varry.</p>
     <img [src]="getTextSampleImage()" [alt]="convertRGBToName(mosaicBackgroundColor)" class="textExample" />
     }
     }
-    @if (showStepFour) {
-    @if(showStepFourSelection) {
-    <h2>Step 4: Choose the text color</h2>
+    @if (showStep > 4) {
+    @if(showStep === 5) {
+    <h2>Step 5: Choose the text color</h2>
     @if (errorMesage.length > 0) {
     <span class="errorMesage"><span class="material-symbols-outlined">
             error
@@ -79,8 +95,8 @@
         <button class="white" (click)="setColor(false, 5)">WHITE</button>
     </div>
     }
-    @if (!showStepFourSelection) {
-    <h2>Step 4: Choose the text color: {{convertRGBToName(mosaicTextColor).toUpperCase()}}</h2>
+    @if (showStep !== 5) {
+    <h2>Step 5: Choose the text color: {{convertRGBToName(mosaicTextColor).toUpperCase()}}</h2>
     <div id="buttonGroup">
         <button (click)="generateImage()">Generate Image</button>
         <button (click)="onSubmit(3)">Start Over</button>
@@ -88,13 +104,8 @@
     }
     }
     @if (showImage) {
-        <app-mosaic-canvas 
-            [pixels] = "generateImage()" 
-            [imageWidth]="mosaicWidth * 150" 
-            [imageHeight]="mosaicHeight * 150"
-            [textColor]="convertRGBToName(mosaicTextColor)"
-            [backgroundColor]="convertRGBToName(mosaicBackgroundColor)"
-            [text]="mosaicText"
-            (buttonClicked)="mosaicCanvasReset()" />
+    <app-mosaic-canvas [pixels]="generateImage()" [imageWidth]="mosaicWidth * 150" [imageHeight]="mosaicHeight * 150"
+        [textColor]="convertRGBToName(mosaicTextColor)" [backgroundColor]="convertRGBToName(mosaicBackgroundColor)"
+        [text]="mosaicText" (buttonClicked)="mosaicCanvasReset()" />
     }
 </main>

@@ -1,5 +1,6 @@
 .canvasImage {
     width: 95%;
+    display: block;
     height: auto;
     margin: 0 auto;
 }
