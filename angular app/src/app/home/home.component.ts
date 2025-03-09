@@ -190,4 +190,9 @@ export class HomeComponent {
     this.showImage = true;
     return pixelsToPlace;
   }
+
+  mosaicCanvasReset() {
+    this.onSubmit(3);
+    // Your logic here
+  }
 }

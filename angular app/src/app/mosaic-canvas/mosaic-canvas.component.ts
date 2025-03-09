@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, ViewChild, ElementRef } from '@angular/core';
+import { AfterViewInit, Component, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-mosaic-canvas',
@@ -15,6 +15,7 @@ export class MosaicCanvasComponent implements AfterViewInit {
   @Input() textColor: string = "";
   @Input() backgroundColor: string = "";
   @Input() text: string = "";
+  @Output() buttonClicked = new EventEmitter<void>();
   private ctx!: CanvasRenderingContext2D;
   private gridSize = 50; // Size of each grid cell (pixel)
 
@@ -80,5 +81,9 @@ export class MosaicCanvasComponent implements AfterViewInit {
     link.href = dataURL;
     link.download = `${this.text.replace(" ", "-")}-mosaic.png`
     link.click();
+  }
+
+  reset() {
+    this.buttonClicked.emit(); // Emit the event
   }
 }

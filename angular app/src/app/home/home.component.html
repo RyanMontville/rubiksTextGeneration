@@ -92,9 +92,7 @@
             [imageHeight]="mosaicHeight * 150"
             [textColor]="convertRGBToName(mosaicTextColor)"
             [backgroundColor]="convertRGBToName(mosaicBackgroundColor)"
-            [text]="mosaicText"/>
-        <div id="buttonGroup">
-            <button (click)="onSubmit(3)">Start Over</button>
-        </div>
+            [text]="mosaicText"
+            (buttonClicked)="mosaicCanvasReset()" />
     }
 </main>
