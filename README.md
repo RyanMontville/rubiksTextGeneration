@@ -5,6 +5,8 @@ The program runs on Python and uses the Pillow library to generate an image guid
 
 The program starts by asking the user for the text to be inserted into the mosaic. It takes that text and caculates the minimum number of cubes needed to spell out the text and formats the text on one or multiple lines, centering the text. Next, the user is asked to input the desired dimensions of the mosaic, the background color of the mosiac, the text color of the mosaic, and the file name for the image that will be saved once the program has finished. The program will take the user's dimensions and determine how many words can fit on each line and the spacing required to center the text. It then creates an array of each Rubik's cube piece's color in the mosaic. After that, the program uses the pillow libray to generate the image and add guidelines to make it easy to see what patterns needs to be on each of the cubes. Final, the image is saved in the programs folder, which can be imported into Photoshop or some other program to further develop the mosaic.
 
+[View the app](https://ryanmontville.com/rubiksTextGeneration/)
+
 ## An example of all the letters, numbers, and special characters
 <div>
     <img src="/images/letters.png" alt="Letters A - Z" title="Letters A - Z" style="width: 49%; display: inline-block;" />
