@@ -10,7 +10,7 @@ I first created a Python CLI using the Pillow Image library to test if this app 
 <li>The user sets the color of the text.</li>
 <li>The app will then calculate the spacing of the text both horizontally and vertically.</li>
 <li>An array of coordinates of each piece of each letter is created.</li>
-<li>The app generates the image and give the option to download the image.</li>
+<li>The app generates the image using HTML Canvas Graphics and give the option to download the image.</li>
 </ol>
 
 The app is hosted on GitHub pages, which you can view [here](https://ryanmontville.com/rubiksTextGeneration/).
