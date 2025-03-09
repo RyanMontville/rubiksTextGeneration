@@ -13,7 +13,7 @@ I first created a Python CLI using the Pillow Image library to test if this app 
 <li>The app generates the image and give the option to download the image.</li>
 </ol>
 
-[View the app](https://ryanmontville.com/rubiksTextGeneration/)
+The app is hosted on GitHub pages, which you can view [here](https://ryanmontville.com/rubiksTextGeneration/).
 
 ## An example of all the letters, numbers, and special characters
 <div>
