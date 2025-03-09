@@ -2,11 +2,32 @@ header {
     display: flex;
     justify-content:space-between;
     align-items: center;
-    margin: 10px;
+    margin: 10px 10px 5px 10px;
     color: var(--main-color);
     font-family: "Roboto";
 }
 
 header h1 {
-    font-size: 30px;
+    font-size: 3vw;
+    font-weight: 900;
+}
+
+@media only screen and (max-width: 755px) {
+    header {
+        flex-direction: column;
+    }
+    header h1 {
+        font-size: 6vw;
+    }
+
+    header :nth-child(1) {
+        order: 2;
+    }
+    header :nth-child(2) {
+        order: 1;
+    }
+
+    header :nth-child(3) {
+        order: 3;
+    }
 }

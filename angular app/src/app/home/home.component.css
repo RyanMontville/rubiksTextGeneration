@@ -1,5 +1,11 @@
+.inputGroup {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
 .mosaicTextBar {
-    width: 80%;
+    flex-grow: 1;
 }
 
 .dimensionInput {
@@ -42,3 +48,4 @@
 .textExample {
     height: 150px;
 }
+
