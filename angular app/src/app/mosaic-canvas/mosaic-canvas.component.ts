@@ -44,9 +44,9 @@ export class MosaicCanvasComponent implements AfterViewInit {
 
       // Check if it's every third line
       if ((x / this.gridSize) % 3 === 0) {
-        this.ctx.lineWidth = 2; // Twice as thick
+        this.ctx.lineWidth = 4; // Twice as thick
       } else {
-        this.ctx.lineWidth = 1; // Normal thickness
+        this.ctx.lineWidth = 2; // Normal thickness
       }
 
       this.ctx.stroke();
@@ -60,9 +60,9 @@ export class MosaicCanvasComponent implements AfterViewInit {
 
       // Check if it's every third line
       if ((y / this.gridSize) % 3 === 0) {
-        this.ctx.lineWidth = 2; // Twice as thick
+        this.ctx.lineWidth = 4; // Twice as thick
       } else {
-        this.ctx.lineWidth = 1; // Normal thickness
+        this.ctx.lineWidth = 2; // Normal thickness
       }
 
       this.ctx.stroke();
